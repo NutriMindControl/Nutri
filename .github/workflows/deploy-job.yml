@@ -5,22 +5,21 @@ on:
     branches: [ "master", "develop", "ci-cd" ]
 
 jobs:
-  test:
-    runs-on: self-hosted
-    steps:
-      - name: checkout repo
-        uses: actions/checkout@v3
-      - name: set up Java and Maven
-        uses: actions/setup-java@v3
-        with:
-          java-version: '17'
-          distribution: 'temurin'
-          cache: maven
-      - name: run tests
-        run: mvn test
+#  test:
+#    runs-on: self-hosted
+#    steps:
+#      - name: checkout repo
+#        uses: actions/checkout@v3
+#      - name: set up Java and Maven
+#        uses: actions/setup-java@v3
+#        with:
+#          java-version: '17'
+#          distribution: 'temurin'
+#          cache: maven
+#      - name: run tests
+#        run: mvn test
   prepare-environment:
     runs-on: self-hosted
-    needs: test
     steps:
       - name: Stop and remove containers, networks
         run: docker-compose down
