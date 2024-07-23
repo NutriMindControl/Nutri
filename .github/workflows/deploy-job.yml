@@ -21,8 +21,8 @@ jobs:
   prepare-environment:
     runs-on: self-hosted
     steps:
-      - name: Stop and remove containers, networks
-        run: docker-compose down
+#      - name: Stop and remove containers, networks
+#        run: docker-compose down
       - name: Remove unused data
         run: docker system prune -a -f
   deploy:
