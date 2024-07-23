@@ -1,0 +1,41 @@
+version: '3'
+services:
+  postgresql:
+    image: postgres:15
+    volumes:
+      - ../initdb:/docker-entrypoint-initdb.d
+      - ../src/main/resources/data:/csv-data # are used in migrations
+      - nutri-db:/var/lib/porstgresql/data
+    environment:
+      - POSTGRES_USER=backend
+      - POSTGRES_PASSWORD=backend
+    ports:
+      - "5433:5432"
+    restart: always
+
+  back:
+    build: ../.
+    image: nutri-back
+    container_name: nutri-back
+    environment:
+      DB_NAME: postgresql
+      DATASOURCE_URL: jdbc:postgresql://postgresql:5432/backend
+      DATASOURCE_USERNAME: backend
+      DATASOURCE_PASSWORD: backend
+
+      SCHEMA_NAME: public
+
+      ENABLE_SSL: false
+
+      SERVER_PORT: 8080
+      ENABLE_HTTP2: false
+
+      BASELINE_ON_MIGRATE: false
+    ports:
+      - "80:8080"
+    depends_on:
+      - postgresql
+    restart: always
+
+volumes:
+  nutri-db:
