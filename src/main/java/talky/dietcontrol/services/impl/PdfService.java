@@ -1,0 +1,62 @@
+package talky.dietcontrol.services.impl;
+
+import com.itextpdf.text.pdf.BaseFont;
+import org.springframework.stereotype.Service;
+import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
+import org.thymeleaf.spring5.SpringTemplateEngine;
+import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
+import org.xhtmlrenderer.pdf.ITextRenderer;
+import talky.dietcontrol.exceptions.NotFoundException;
+import talky.dietcontrol.model.dto.DailyMenuDTO;
+import talky.dietcontrol.model.dto.TalkyRecipeDTO;
+
+import java.io.ByteArrayOutputStream;
+import java.util.List;
+
+@Service
+public class PdfService {
+
+
+    public String generateHtml(DailyMenuDTO menu, List<TalkyRecipeDTO> talkyBreakfast, List<TalkyRecipeDTO> talkyLunch, List<TalkyRecipeDTO> talkyDinner) {
+        try {
+            TemplateEngine templateEngine = new SpringTemplateEngine();
+
+            // Configure Thymeleaf template resolver
+            ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
+            templateResolver.setPrefix("templates/");
+            templateResolver.setSuffix(".html");
+            templateResolver.setTemplateMode("HTML");
+            templateResolver.setCharacterEncoding("UTF-8");
+            templateEngine.setTemplateResolver(templateResolver);
+
+            // Create Thymeleaf context and add variables
+            Context context = new Context();
+            context.setVariable("mealData", menu);
+
+            context.setVariable("breakfastRecipes", talkyBreakfast);
+            context.setVariable("lunchRecipes", talkyLunch);
+            context.setVariable("dinnerRecipes", talkyDinner);
+
+            // Generate HTML from template
+            return templateEngine.process("template", context);
+        } catch (Exception e) {
+            throw new NotFoundException("Failed to generate HTML");
+        }
+    }
+
+    public byte[] generatePdfFromHtml(String html) {
+        try {
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            ITextRenderer renderer = new ITextRenderer();
+            renderer.getFontResolver().addFont("templates/arial.ttf", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            renderer.setDocumentFromString(html);
+
+            renderer.layout();
+            renderer.createPDF(byteArrayOutputStream);
+            return byteArrayOutputStream.toByteArray();
+        } catch (Exception e) {
+            throw new NotFoundException("Failed to generate PDF");
+        }
+    }
+}

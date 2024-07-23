@@ -1,0 +1,653 @@
+openapi: 3.0.0
+info:
+  title: API управления питанием
+  description: API для управления данными, связанными с питанием, такими как пользователи, продукты, диагнозы и избранное.
+  version: 1.0.0
+tags:
+  - name: Меню
+    description: API для меню непосредственно
+servers:
+  - url: http://localhost:5756/api/v1
+    description: Продукционный сервер
+paths:
+  /daily-menu:
+    post:
+      tags:
+        - Меню
+      summary: Получить меню на день для пользователя
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MenuInfoDTO'
+      responses:
+        '200':
+          description: Меню на день найдено
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DailyMenuDTO'
+        '404':
+          description: Ошибка
+  /daily-menu/update/{meal_type}:
+    put:
+      tags:
+        - Меню
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyMenuDTO'
+      parameters:
+        - name: meal_type
+          in: path
+          required: true
+          schema:
+            type: string
+            enum: [ breakfast, lunch, dinner ]
+            description: Тип приема пищи (завтрак, обед, ужин)
+        - name: diagnose_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            description: ID болезни
+      summary: Изменить рацион на день, конкретный прием пищи
+      responses:
+        '200':
+          description: Успешное изменение рациона на день
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MealTypeResponseDTO'
+        '404':
+          description: Рацион не изменен
+
+  /daily-menu/update/product/{id}:
+    put:
+      tags:
+        - Меню
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyMenuDTO'
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: ID продукта
+        - name: diagnose_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            description: ID болезни
+      summary: Изменить рацион на день, конкретный продукт
+      responses:
+        '200':
+          description: Успешное изменение продукта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProductChangeResponseDTO'
+        '404':
+          description: Рацион не изменен
+
+  /daily-menu/update/recipe/{id}:
+    put:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+
+              $ref: '#/components/schemas/DailyMenuDTO'
+      tags:
+        - Меню
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+            description: ID рецепта
+        - name: diagnose_id
+          in: query
+          required: true
+          schema:
+            type: integer
+            description: ID болезни
+      summary: Изменить рацион на день, конкретный рецепт
+      responses:
+        '200':
+          description: Успешное изменение рецепта
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecipeChangeResponseDTO'
+        '404':
+          description: Рацион не изменен
+
+  /diagnosis:
+    get:
+      summary: Получить список диагнозов
+      responses:
+        '200':
+          description: Список пользователей
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DiagnosisDTO'
+
+  /daily-menu/activitylevel:
+    get:
+      tags:
+        - Меню
+      summary: Получить лист физ. активностей
+      responses:
+        '200':
+          description: Активности найдены
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  description: Уровень физической активности
+                  example: Высокая
+        '404':
+          description: Уровень физической активности не найден
+
+
+  # /recipes/{id}:
+  #   get:
+  #     summary: Получить рецепт по id
+  #     parameters:
+  #       - name: id
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type: integer
+  #         description: ID рецепта для получения
+  #     responses:
+  #       '200':
+  #         description: Список пользователей
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/RecipeDTO'
+  # /products:
+  #   get:
+  #     summary: Получить все продукты
+  #     responses:
+  #       '200':
+  #         description: Список продуктов
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/ProductDTO'
+  # /products/{productId}:
+  #   get:
+  #     summary: Получить продукт по ID
+  #     parameters:
+  #       - name: productId
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type: integer
+  #         description: ID продукта для получения
+  #     responses:
+  #       '200':
+  #         description: Продукт найден
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/ProductDTO'
+  #       '404':
+  #         description: Продукт не найден
+  # /recipes:
+  #   get:
+  #     summary: Получить все рецепты
+  #     responses:
+  #       '200':
+  #         description: Список рецептов
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/RecipeDTO'
+  # /recipes/{recipeId}:
+  #   get:
+  #     summary: Получить рецепт по ID
+  #     parameters:
+  #       - name: recipeId
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type: integer
+  #         description: ID рецепта для получения
+  #     responses:
+  #       '200':
+  #         description: Рецепт найден
+  #         content:
+  #           application/json:
+  #             schema:
+  #               $ref: '#/components/schemas/RecipeDTO'
+  #       '404':
+  #         description: Рецепт не найден
+  # /users/{userId}/liked-products:
+  #   get:
+  #     summary: Получить лайкнутые продукты пользователя
+  #     parameters:
+  #       - name: userId
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type: integer
+  #         description: ID пользователя для получения лайкнутых продуктов
+  #     responses:
+  #       '200':
+  #         description: Список лайкнутых продуктов пользователя
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/ProductDTO'
+  #       '404':
+  #         description: Пользователь не найден
+  # /users/{userId}/disliked-products:
+  #   get:
+  #     summary: Получить дизлайкнутые продукты пользователя
+  #     parameters:
+  #       - name: userId
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type: integer
+  #         description: ID пользователя для получения дизлайкнутых продуктов
+  #     responses:
+  #       '200':
+  #         description: Список дизлайкнутых продуктов пользователя
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/ProductDTO'
+  #       '404':
+  #         description: Пользователь не найден
+  # /users/{userId}/liked-recipes:
+  #   get:
+  #     summary: Получить лайкнутые рецепты пользователя
+  #     parameters:
+  #       - name: userId
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type: integer
+  #         description: ID пользователя для получения лайкнутых рецептов
+  #     responses:
+  #       '200':
+  #         description: Список лайкнутых рецептов пользователя
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/RecipeDTO'
+  #       '404':
+  #         description: Пользователь не найден
+  # /users/{userId}/disliked-recipes:
+  #   get:
+  #     summary: Получить дизлайкнутые рецепты пользователя
+  #     parameters:
+  #       - name: userId
+  #         in: path
+  #         required: true
+  #         schema:
+  #           type: integer
+  #         description: ID пользователя для получения дизлайкнутых рецептов
+  #     responses:
+  #       '200':
+  #         description: Список дизлайкнутых рецептов пользователя
+  #         content:
+  #           application/json:
+  #             schema:
+  #               type: array
+  #               items:
+  #                 $ref: '#/components/schemas/RecipeDTO'
+  #       '404':
+  #         description: Пользователь не найден
+
+
+components:
+  schemas:
+    MenuInfoDTO:
+      type: object
+      properties:
+        height:
+          type: number
+          description: Рост пользователя
+          example: 175
+        weight:
+          type: number
+          description: Вес пользователя
+          example: 70
+        age:
+          type: integer
+          description: Возраст пользователя
+          example: 25
+        gender:
+          type: string
+          description: Пол пользователя
+          example: "Муж./Жен."
+        physicalActivityLevel:
+          type: string
+          description: Уровень физической активности
+          enum: [ "Отсутствие физической активности", "Низкая", "Умеренная", "Выше среднего", "Высокая", "Очень высокая" ]
+          example: "Умеренная"
+        diagnoseId:
+          type: integer
+          description: Id болезни пользователя
+          example: 1
+    DiagnosisDTO:
+      type: object
+      properties:
+        diagnoseId:
+          type: integer
+          format: int64
+          description: Идентификатор диагноза
+          example: 1
+        code:
+          type: string
+          description: Код диагноза
+          example: "A00"
+        icd10Code:
+          type: string
+          description: Код по МКБ-10
+          example: "A00.0"
+        diagnosis_description:
+          type: string
+          description: Описание диагноза
+          example: "Холера"
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: ID пользователя
+        age:
+          type: integer
+          description: Возраст пользователя
+        gender:
+          type: string
+          description: Пол пользователя
+        height_cm:
+          type: integer
+          description: Рост в сантиметрах
+        weight_kg:
+          type: number
+          description: Вес в килограммах
+        diagnosis:
+          type: string
+          description: Диагноз пользователя
+        physical_activity_level:
+          type: string
+          description: Уровень физической активности пользователя
+        bmi:
+          type: number
+          description: Индекс массы тела (ИМТ) пользователя
+        daily_calorie_needs:
+          type: number
+          description: Суточная норма калорий для пользователя
+        daily_protein_needs:
+          type: number
+          description: Суточная норма белков для пользователя
+        daily_fat_needs:
+          type: number
+          description: Суточная норма жиров для пользователя
+        daily_carbohydrate_needs:
+          type: number
+          description: Суточная норма углеводов для пользователя
+      required:
+        - id
+        - age
+        - gender
+        - height_cm
+        - weight_kg
+        - diagnosis
+        - physical_activity_level
+    ProductDTO:
+      type: object
+      properties:
+        product_id:
+          type: integer
+          description: ID продукта
+        product_name:
+          type: string
+          description: Название продукта
+        protein:
+          type: number
+          description: Содержание белков в продукте
+        fat:
+          type: number
+          description: Содержание жиров в продукте
+        carbohydrates:
+          type: number
+          description: Содержание углеводов в продукте
+        energyValue:
+          type: number
+          description: Энергетическая ценность продукта
+        serving:
+          type: number
+          description: Размер порции продукта
+        categories:
+          type: string
+          description: Категории продукта
+      required:
+        - productId
+        - productName
+        - categories
+    RecipeDTO:
+      type: object
+      properties:
+        recipe_id:
+          type: integer
+          description: ID рецепта
+        recipe_name:
+          type: string
+          description: Название рецепта
+        cook_time_mins:
+          type: integer
+          description: Время приготовления в минутах
+        author_uid:
+          type: string
+          description: UID автора
+        prep_time_mins:
+          type: integer
+          nullable: true
+          description: Время подготовки в минутах
+        servings:
+          type: integer
+          description: Количество порций
+        kilocalories:
+          type: number
+          description: Калории на порцию
+        proteins:
+          type: number
+          description: Белки на порцию
+        fats:
+          type: number
+          description: Жиры на порцию
+        carbohydrates:
+          type: number
+          description: Углеводы на порцию
+        ingredients_distributions:
+          type: array
+          items:
+            type: object
+            properties:
+              name:
+                type: string
+                description: Название ингредиента
+              measure_unit_name:
+                type: string
+                description: Единица измерения
+              count:
+                type: number
+                description: Количество
+              ingredient_id:
+                type: integer
+                description: ID ингредиента
+      required:
+        - id
+        - name
+        - cook_time_mins
+        - author_uid
+        - servings
+        - kilocalories
+        - proteins
+        - fats
+        - carbohydrates
+        - ingredients_distributions
+    DailyMenuDTO:
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+          description: Дата меню
+        breakfast_meals:
+          $ref: '#/components/schemas/MealDTO'
+          description: Данные о завтраке
+        lunch_meals:
+          $ref: '#/components/schemas/MealDTO'
+          description: Данные о обеде
+        dinner_meals:
+          $ref: '#/components/schemas/MealDTO'
+          description: Данные о ужине
+        total_params:
+          $ref: '#/components/schemas/TotalParamsDTO'
+          description: Суммарные параметры за день
+      required:
+        - userId
+        - date
+        - breakfast_meals
+        - lunch_meals
+        - dinner_meals
+        - total_params
+    MealTypeResponseDTO:
+      type: object
+      properties:
+        meal:
+          $ref: '#/components/schemas/MealDTO'
+        total_params:
+          $ref: '#/components/schemas/TotalParamsDTO'
+      required:
+        - meal
+        - total_params
+    ProductChangeResponseDTO:
+      type: object
+      properties:
+        product:
+          $ref: '#/components/schemas/ProductDTO'
+        total_params:
+          $ref: '#/components/schemas/TotalParamsDTO'
+      required:
+        - meal
+        - total_params
+
+    RecipeChangeResponseDTO:
+      type: object
+      properties:
+        recipe:
+          $ref: '#/components/schemas/RecipeDTO'
+        total_params:
+          $ref: '#/components/schemas/TotalParamsDTO'
+      required:
+        - meal
+        - total_params
+    MealDTO:
+      type: object
+      properties:
+        recipes:
+          type: array
+          items:
+            $ref: '#/components/schemas/RecipeDTO'
+          description: Список рецептов
+        products:
+          type: array
+          items:
+            $ref: '#/components/schemas/ProductDTO'
+          description: Список продуктов
+        kilocalories:
+          type: number
+          description: Калории
+        fats:
+          type: number
+          description: Жиры
+        carbohydrates:
+          type: number
+          description: Углеводы
+        proteins:
+          type: number
+          description: Белки
+      required:
+        - recipes
+        - products
+        - kilocalories
+        - fats
+        - carbohydrates
+        - proteins
+    TotalParamsDTO:
+      type: object
+      properties:
+        total_calories:
+          type: number
+          description: Общие калории за день
+        total_fats:
+          type: number
+          description: Общие жиры за день
+        total_proteins:
+          type: number
+          description: Общие белки за день
+        total_carbohydrates:
+          type: number
+          description: Общие углеводы за день
+        required_calories:
+          type: number
+          description: Необходимое количество калорий за день
+        daily_protein_needs:
+          type: number
+          description: Необходимое количество белков за день
+        daily_fat_needs:
+          type: number
+          description: Необходимое количество жиров за день
+        daily_carbohydrate_needs:
+          type: number
+          description: Необходимое количество углеводов за день
+      required:
+        - total_calories
+        - total_fats
+        - total_proteins
+        - total_carbohydrates
+        - required_calories
+        - daily_protein_needs
+        - daily_fat_needs
+        - daily_carbohydrate_needs

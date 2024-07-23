@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>HELLLOPOO на [[${mealData.date}]]</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+            max-width: 1200px;
+            margin: auto;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #333;
+            color: #fff;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        .nutrition-summary {
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .nutrition-summary h2 {
+            margin-top: 0;
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        .nutrition-summary p {
+            margin: 10px 0;
+            font-size: 1.2em;
+            color: #555;
+        }
+
+        .nutrition-summary p strong {
+            color: #333;
+        }
+
+        .nutrition-summary .value {
+            font-weight: bold;
+            color: #cf8bfa; /* Accent color */
+        }
+
+        .nutrition-summary .highlight {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border-left: 5px solid #5bc0de; /* Accent color */
+        }
+
+        .product-list ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .product-list li {
+            padding: 5px 0;
+        }
+
+        .steps-section {
+            background: #fff;
+            border-radius: 5px;
+            padding: 20px;
+            margin-top: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .step {
+            margin-bottom: 15px;
+            padding: 10px;
+            border-left: 4px solid #333;
+        }
+
+        .step-number {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-right: 10px;
+            color: #333;
+        }
+
+        .step-description {
+            font-size: 1em;
+            margin: 0;
+        }
+
+        .step-wait-time {
+            font-style: italic;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h1>Питание на [[${mealData.date}]]</h1>
+</header>
+<div class="container">
+    <div th:each="recipe : ${breakfastRecipes}">
+        <h2 th:text="${recipe.name}">Рецепт</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Калории</th>
+                <th>Белки</th>
+                <th>Жиры</th>
+                <th>Углеводы</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${recipe.name}"></td>
+                <td th:text="${recipe.kilocalories}"></td>
+                <td th:text="${recipe.proteins}"></td>
+                <td th:text="${recipe.fats}"></td>
+                <td th:text="${recipe.carbohydrates}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <section id="steps" class="steps-section">
+            <h3>Шаги приготовления</h3>
+            <div th:each="step : ${recipe.steps}">
+                <div class="step">
+                    <div class="step-number" th:text="${step.stepNum + 1}">1
+                    </div>
+                    <div class="step-description"
+                         th:text="${step.description}"></div>
+                    <div class="step-wait-time"
+                         th:if="${step.waitTimeMins != null}"
+                         th:text="'Ожидание: ' + ${step.waitTimeMins} + ' минут'"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+    <div th:each="recipe : ${lunchRecipes}">
+        <h2 th:text="${recipe.name}">Рецепт</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Калории</th>
+                <th>Белки</th>
+                <th>Жиры</th>
+                <th>Углеводы</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${recipe.name}"></td>
+                <td th:text="${recipe.kilocalories}"></td>
+                <td th:text="${recipe.proteins}"></td>
+                <td th:text="${recipe.fats}"></td>
+                <td th:text="${recipe.carbohydrates}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <section id="steps2" class="steps-section">
+            <h3>Шаги приготовления</h3>
+            <div th:each="step : ${recipe.steps}">
+                <div class="step">
+                    <div class="step-number" th:text="${step.stepNum + 1}">1
+                    </div>
+                    <div class="step-description"
+                         th:text="${step.description}"></div>
+                    <div class="step-wait-time"
+                         th:if="${step.waitTimeMins != null}"
+                         th:text="'Ожидание: ' + ${step.waitTimeMins} + ' минут'"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div th:each="recipe : ${dinnerRecipes}">
+        <h2 th:text="${recipe.name}">Рецепт</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Название</th>
+                <th>Калории</th>
+                <th>Белки</th>
+                <th>Жиры</th>
+                <th>Углеводы</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${recipe.name}"></td>
+                <td th:text="${recipe.kilocalories}"></td>
+                <td th:text="${recipe.proteins}"></td>
+                <td th:text="${recipe.fats}"></td>
+                <td th:text="${recipe.carbohydrates}"></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <section id="steps3" class="steps-section">
+            <h3>Шаги приготовления</h3>
+            <div th:each="step : ${recipe.steps}">
+                <div class="step">
+                    <div class="step-number" th:text="${step.stepNum + 1}">1
+                    </div>
+                    <div class="step-description"
+                         th:text="${step.description}"></div>
+                    <div class="step-wait-time"
+                         th:if="${step.waitTimeMins != null}"
+                         th:text="'Ожидание: ' + ${step.waitTimeMins} + ' минут'"></div>
+                </div>
+            </div>
+        </section>
+    </div>
+    <section class="nutrition-summary">
+        <h2>Общая информация</h2>
+        <div class="highlight">
+            <p><strong>Общее количество калорий:</strong> <span class="value"
+                                                                th:text="${#numbers.formatDecimal(mealData.totalParams.totalCalories, 0, 'COMMA', 2, 'POINT')}"></span>
+            </p>
+            <p><strong>Общее количество белков:</strong> <span class="value"
+                                                               th:text="${#numbers.formatDecimal(mealData.totalParams.totalProteins, 0, 'COMMA', 2, 'POINT')}"></span>
+            </p>
+            <p><strong>Общее количество жиров:</strong> <span class="value"
+                                                              th:text="${#numbers.formatDecimal(mealData.totalParams.totalFats, 0, 'COMMA', 2, 'POINT')}"></span>
+            </p>
+            <p><strong>Общее количество углеводов:</strong> <span class="value"
+                                                                  th:text="${#numbers.formatDecimal(mealData.totalParams.totalCarbohydrates, 0, 'COMMA', 2, 'POINT')}"></span>
+            </p>
+        </div>
+        <div class="highlight">
+            <p><strong>Необходимое количество калорий:</strong> <span
+                    class="value"
+                    th:text="${#numbers.formatDecimal(mealData.totalParams.requiredCalories, 0, 'COMMA', 2, 'POINT')}"></span>
+            </p>
+            <p><strong>Суточная норма белков:</strong> <span class="value"
+                                                             th:text="${#numbers.formatDecimal(mealData.totalParams.dailyProteinNeeds, 0, 'COMMA', 2, 'POINT')}"></span>
+            </p>
+            <p><strong>Суточная норма жиров:</strong> <span class="value"
+                                                            th:text="${#numbers.formatDecimal(mealData.totalParams.dailyFatNeeds, 0, 'COMMA', 2, 'POINT')}"></span>
+            </p>
+            <p><strong>Суточная норма углеводов:</strong> <span class="value"
+                                                                th:text="${#numbers.formatDecimal(mealData.totalParams.dailyCarbohydrateNeeds, 0, 'COMMA', 2, 'POINT')}"></span>
+            </p>
+        </div>
+    </section>
+
+</div>
+</body>
+</html>
