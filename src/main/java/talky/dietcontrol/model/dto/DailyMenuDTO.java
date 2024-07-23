@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -16,7 +16,7 @@ import static talky.dietcontrol.services.impl.DailyMenuServiceImpl.PLUS_FIVE_PER
 @Data
 public class DailyMenuDTO {
     @JsonProperty("date")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @JsonProperty("breakfast_meals")
     private MealDTO breakfastMeals = new MealDTO();

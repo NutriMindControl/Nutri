@@ -13,6 +13,7 @@ import talky.dietcontrol.model.dto.Meal;
 import talky.dietcontrol.model.dto.RecipeDTO;
 import talky.dietcontrol.model.entities.Diagnosis;
 import talky.dietcontrol.model.entities.ProductCategoryProhibition;
+import talky.dietcontrol.model.mappers.DefaultMapper;
 import talky.dietcontrol.repository.ProductCategoryProhibitionRepository;
 import talky.dietcontrol.services.interfaces.DiagnosisService;
 import talky.dietcontrol.services.interfaces.RecipeService;
@@ -29,11 +30,13 @@ public class RecipeServiceImpl implements RecipeService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final ProductCategoryProhibitionRepository productRepository;
     private final Random random = new Random();
+    private final DefaultMapper modelMapper;
 
-    public RecipeServiceImpl(RestTemplate restTemplate, DiagnosisService diagnosisService, ProductCategoryProhibitionRepository productRepository) {
+    public RecipeServiceImpl(RestTemplate restTemplate, DiagnosisService diagnosisService, ProductCategoryProhibitionRepository productRepository, DefaultMapper modelMapper) {
         this.restTemplate = restTemplate;
         this.diagnosisService = diagnosisService;
         this.productRepository = productRepository;
+        this.modelMapper = modelMapper;
     }
 
     private List<RecipeDTO> filterRecipesByCategory
@@ -43,7 +46,7 @@ public class RecipeServiceImpl implements RecipeService {
         List<RecipeDTO> allowedRecipes = new ArrayList<>();
         for (RecipeDTO recipe : recipes) {
 
-            ResponseEntity<CategoryDto[]> responseEntity = restTemplate.getForEntity(URI.create(Constants.TALKY_URL + "/recipes/" + recipe.getId() + "/categories"), CategoryDto[].class);
+            ResponseEntity<CategoryDto[]> responseEntity = restTemplate.getForEntity(URI.create(Constants.TALKY_URL + "/recipes/" + recipe.getRecipeId() + "/categories"), CategoryDto[].class);
 
             List<CategoryDto> categories = Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
             boolean hasDayTimeCategory = categories.stream().anyMatch(categoryDto -> categoryDto.getName().equals(dayTime));
@@ -88,6 +91,24 @@ public class RecipeServiceImpl implements RecipeService {
         log.info("Got recipes for diagnose with id: {}", diagnoseId);
 
         return recipes;
+    }
+
+    public List<RecipeDTO> mapToRecipeDTOList(List<Map<String, Object>> recipeList) {
+        List<RecipeDTO> recipeDTOs = new ArrayList<>();
+
+        for (Map<String, Object> map : recipeList) {
+            RecipeDTO recipeDTO = modelMapper.map(map, RecipeDTO.class);
+
+            // Map each field from the map to the RecipeDTO
+            recipeDTO.setRecipeName((String) map.get("name"));
+            recipeDTO.setRecipeId(Long.parseLong(String.valueOf(map.get("id"))));
+            recipeDTO.setCookTimeMins((Integer) map.get("cook_time_mins"));
+            recipeDTO.setPrepTimeMins((Integer) map.get("prep_time_mins"));
+
+            recipeDTOs.add(recipeDTO);
+        }
+
+        return recipeDTOs;
     }
 
     public List<RecipeDTO> findRecipeWithinRangeAndCategory(List<RecipeDTO> recipes, Meal meal, String category) {

@@ -11,16 +11,13 @@ import java.util.List;
 @Data
 public class RecipeDTO implements BaseDTOWithNutrientsMethods {
     @JsonProperty("name")
-    private String name = null;
+    private String recipeName = null;
 
     @JsonProperty("id")
-    private Long id = null;
+    private Long recipeId = null;
 
     @JsonProperty("cook_time_mins")
     private Integer cookTimeMins = null;
-
-    @JsonProperty("author_uid")
-    private String authorUid = null;
 
     @JsonProperty("prep_time_mins")
     private Integer prepTimeMins = null;

@@ -21,6 +21,7 @@ import talky.dietcontrol.services.interfaces.RecipeService;
 
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -157,7 +158,7 @@ public class DailyMenuServiceImpl implements DailyMenuService {
         TotalParamsDTO totalParams = dailyMenuDTO.getTotalParams();
         changeService.updateTotalParams(totalParams, changingRecipe, false);
 
-        List<RecipeDTO> filteredRecipes = changeService.filterAllowedItems(allowedRecipes, dailyMenuDTO.getAllRecipes(), RecipeDTO::getId);
+        List<RecipeDTO> filteredRecipes = changeService.filterAllowedItems(allowedRecipes, dailyMenuDTO.getAllRecipes(), RecipeDTO::getRecipeId);
 
         RecipeDTO recipeDTO = changeService.getRecipeForParams(filteredRecipes, totalParams);
 
@@ -176,11 +177,11 @@ public class DailyMenuServiceImpl implements DailyMenuService {
         return recipes.stream()
                 .map(rec -> {
                     try {
-                        ResponseEntity<TalkyRecipeDTO> responseEntity = getRecipeById(rec.getId());
+                        ResponseEntity<TalkyRecipeDTO> responseEntity = getRecipeById(rec.getRecipeId());
                         return Optional.ofNullable(responseEntity.getBody())
-                                .orElseThrow(() -> new RuntimeException("Recipe not found for ID: " + rec.getId()));
+                                .orElseThrow(() -> new RuntimeException("Recipe not found for ID: " + rec.getRecipeId()));
                     } catch (JsonProcessingException e) {
-                        throw new NotFoundException("Error processing recipe with ID: " + rec.getId());
+                        throw new NotFoundException("Error processing recipe with ID: " + rec.getRecipeId());
                     }
                 }).toList();
     }
@@ -200,18 +201,18 @@ public class DailyMenuServiceImpl implements DailyMenuService {
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_PDF);
         headers.setContentDispositionFormData("filename", "daily_menu.pdf");
-
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 
     private void createDailyMenu(double bmr, DailyMenuDTO dailyMenuDTO, List<RecipeDTO> allowedRecipes, List<ProductDTO> allowedProducts) {
         final List<ProductDTO> mutableList = new ArrayList<>(allowedProducts);
         final List<RecipeDTO> mutableListRecipes = new ArrayList<>(allowedRecipes);
-        dailyMenuDTO.setBreakfastMeals(createMeal(MealType.BREAKFAST, allowedRecipes, mutableList, bmr));
+        Collections.shuffle(mutableListRecipes);
+        dailyMenuDTO.setBreakfastMeals(createMeal(MealType.BREAKFAST, mutableListRecipes, mutableList, bmr));
         productService.removeUsedProducts(mutableList, mutableListRecipes, dailyMenuDTO.getBreakfastMeals());
-        dailyMenuDTO.setLunchMeals(createMeal(MealType.LUNCH, allowedRecipes, mutableList, bmr));
+        dailyMenuDTO.setLunchMeals(createMeal(MealType.LUNCH, mutableListRecipes, mutableList, bmr));
         productService.removeUsedProducts(mutableList, mutableListRecipes, dailyMenuDTO.getLunchMeals());
-        dailyMenuDTO.setDinnerMeals(createMeal(MealType.DINNER, allowedRecipes, mutableList, bmr));
+        dailyMenuDTO.setDinnerMeals(createMeal(MealType.DINNER, mutableListRecipes, mutableList, bmr));
     }
 
 

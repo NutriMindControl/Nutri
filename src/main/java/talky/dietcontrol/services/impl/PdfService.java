@@ -22,7 +22,6 @@ public class PdfService {
         try {
             TemplateEngine templateEngine = new SpringTemplateEngine();
 
-            // Configure Thymeleaf template resolver
             ClassLoaderTemplateResolver templateResolver = new ClassLoaderTemplateResolver();
             templateResolver.setPrefix("templates/");
             templateResolver.setSuffix(".html");
@@ -30,7 +29,6 @@ public class PdfService {
             templateResolver.setCharacterEncoding("UTF-8");
             templateEngine.setTemplateResolver(templateResolver);
 
-            // Create Thymeleaf context and add variables
             Context context = new Context();
             context.setVariable("mealData", menu);
 
@@ -38,7 +36,6 @@ public class PdfService {
             context.setVariable("lunchRecipes", talkyLunch);
             context.setVariable("dinnerRecipes", talkyDinner);
 
-            // Generate HTML from template
             return templateEngine.process("template", context);
         } catch (Exception e) {
             throw new NotFoundException("Failed to generate HTML");

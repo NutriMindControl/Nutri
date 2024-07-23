@@ -96,7 +96,7 @@ public class ProductServiceImpl implements ProductService {
         );
         mutableListRecipes.removeIf(mutableItem ->
                 meal.getRecipes().stream()
-                        .anyMatch(mealItem -> Objects.equals(mealItem.getId(), mutableItem.getId()))
+                        .anyMatch(mealItem -> Objects.equals(mealItem.getRecipeId(), mutableItem.getRecipeId()))
         );
     }
 

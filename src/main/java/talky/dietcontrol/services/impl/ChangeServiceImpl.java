@@ -10,7 +10,7 @@ import talky.dietcontrol.services.interfaces.ChangeService;
 import talky.dietcontrol.services.interfaces.ProductService;
 import talky.dietcontrol.services.interfaces.RecipeService;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
@@ -142,7 +142,7 @@ public class ChangeServiceImpl implements ChangeService {
 
     public RecipeDTO getChangingRecipe(Long recipeId, DailyMenuDTO dailyMenuDTO) {
         return dailyMenuDTO.getAllRecipes().stream()
-                .filter(product -> product.getId().equals(recipeId))
+                .filter(product -> product.getRecipeId().equals(recipeId))
                 .findFirst()
                 .orElseThrow(() -> new NotFoundException("Such recipe wasn't found"));
     }
@@ -164,7 +164,7 @@ public class ChangeServiceImpl implements ChangeService {
         double dailyFatNeeds = bmr * 0.3 / 9.3;
         double dailyCarbohydrateNeeds = bmr * 0.4 / 4.1;
         TotalParamsDTO totalParamsDTO = new TotalParamsDTO(bmr, dailyProteinNeeds, dailyFatNeeds, dailyCarbohydrateNeeds);
-        dailyMenuDTO.setDate(LocalDateTime.now());
+        dailyMenuDTO.setDate(LocalDate.now());
         dailyMenuDTO.setTotalParams(totalParamsDTO);
     }
 

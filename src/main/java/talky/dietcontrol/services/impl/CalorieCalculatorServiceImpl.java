@@ -92,10 +92,11 @@ public class CalorieCalculatorServiceImpl implements CalorieCalculatorService {
         int numProducts = products.size();
         for (int i = 0; i < numProducts; i++) {
             ProductDTO product = products.get(i);
-            caloriesCoefficients[i] = product.getCalories() / product.getServing();
-            proteinCoefficients[i] = product.getProteins() / product.getServing();
-            fatCoefficients[i] = product.getFats() / product.getServing();
-            carbsCoefficients[i] = product.getCarbohydrates() / product.getServing();
+            double servings = product.getServing() == null ? 4 : product.getServing();
+            caloriesCoefficients[i] = product.getCalories() / servings;
+            proteinCoefficients[i] = product.getProteins() / servings;
+            fatCoefficients[i] = product.getFats() / servings;
+            carbsCoefficients[i] = product.getCarbohydrates() / servings;
         }
     }
 
