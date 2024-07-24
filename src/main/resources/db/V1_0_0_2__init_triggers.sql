@@ -81,7 +81,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Создание триггера на обновление таблицы users
-CREATE TRIGGER update_user_metrics
+CREATE OR REPLACE TRIGGER update_user_metrics
     BEFORE INSERT OR UPDATE OF age, gender, height_cm, weight_kg, physical_activity_level
     ON users
     FOR EACH ROW
