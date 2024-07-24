@@ -1,0 +1,40 @@
+name: Deploy by runner
+
+on:
+  push:
+    branches: [ "main"]
+
+jobs:
+  prepare-prod:
+    runs-on: self-hosted
+    environment: prod
+    env:
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ vars.DB_PORT }}
+      ENABLE_SSL: ${{ vars.ENABLE_SSL }}
+      SERVER_PORT: ${{ vars.SERVER_PORT }}
+      ENABLE_HTTP2: ${{ vars.ENABLE_HTTP2 }}
+      BASELINE_ON_MIGRATE: ${{ vars.BASELINE_ON_MIGRATE }}
+    steps:
+      - name: Stop and remove containers, networks
+        run: docker-compose -f docker/docker-compose.yml down
+      - name: Remove unused data
+        run: docker system prune -a -f
+  deploy-on-prod:
+    runs-on: self-hosted
+    environment: prod
+    needs: prepare-prod
+    env:
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ vars.DB_PORT }}
+      ENABLE_SSL: ${{ vars.ENABLE_SSL }}
+      SERVER_PORT: ${{ vars.SERVER_PORT }}
+      ENABLE_HTTP2: ${{ vars.ENABLE_HTTP2 }}
+      BASELINE_ON_MIGRATE: ${{ vars.BASELINE_ON_MIGRATE }}
+    steps:
+      - name: checkout repo
+        uses: actions/checkout@v3
+      - name: docker-compose
+        run: docker-compose -f docker/docker-compose.yml up -d
