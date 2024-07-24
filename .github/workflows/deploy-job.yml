@@ -5,16 +5,20 @@ on:
     branches: [ "master", "develop", "ci-cd" ]
 
 jobs:
-  prepare-environment:
+  prepare-prod:
     runs-on: self-hosted
     steps:
       - name: Stop and remove containers, networks
         run: docker-compose -f docker/docker-compose.yml down
       - name: Remove unused data
         run: docker system prune -a -f
-  deploy:
+  deploy-on-prod:
     runs-on: self-hosted
-    needs: prepare-environment
+    environment: prod
+    needs: prepare-prod
+    env:
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
     steps:
       - name: checkout repo
         uses: actions/checkout@v3

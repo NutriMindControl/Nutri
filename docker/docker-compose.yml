@@ -7,8 +7,8 @@ services:
       - ../src/main/resources/data:/csv-data # are used in migrations
       - nutri-db:/var/lib/porstgresql/data
     environment:
-      - POSTGRES_USER=backend
-      - POSTGRES_PASSWORD=backend
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
       - "5433:5432"
     restart: always
@@ -20,8 +20,8 @@ services:
     environment:
       DB_NAME: postgresql
       DATASOURCE_URL: jdbc:postgresql://postgresql:5432/backend
-      DATASOURCE_USERNAME: backend
-      DATASOURCE_PASSWORD: backend
+      DATASOURCE_USERNAME: ${DB_USER}
+      DATASOURCE_PASSWORD: ${DB_PASSWORD}
 
       SCHEMA_NAME: public
 
