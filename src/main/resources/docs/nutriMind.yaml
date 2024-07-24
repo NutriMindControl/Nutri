@@ -6,6 +6,9 @@ info:
 tags:
   - name: Меню
     description: API для меню непосредственно
+  - name: Диагнозы
+    description: API для диагнозов
+
 servers:
   - url: http://localhost:5756/api/v1
     description: Продукционный сервер
@@ -108,7 +111,6 @@ paths:
         content:
           application/json:
             schema:
-
               $ref: '#/components/schemas/DailyMenuDTO'
       tags:
         - Меню
@@ -138,6 +140,8 @@ paths:
 
   /diagnosis:
     get:
+      tags:
+        - Диагнозы
       summary: Получить список диагнозов
       responses:
         '200':
@@ -157,6 +161,30 @@ paths:
       responses:
         '200':
           description: Активности найдены
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: string
+                  description: Уровень физической активности
+                  example: Высокая
+        '404':
+          description: Уровень физической активности не найден
+  /daily-menu/getpdf:
+    post:
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DailyMenuDTO'
+      tags:
+        - Меню
+      summary: Получить пдф с меню
+      responses:
+        '200':
+          description: Меню найдено
           content:
             application/json:
               schema:
@@ -642,6 +670,9 @@ components:
         daily_carbohydrate_needs:
           type: number
           description: Необходимое количество углеводов за день
+        imt:
+          type: number
+          description: Индекс массы тела
       required:
         - total_calories
         - total_fats

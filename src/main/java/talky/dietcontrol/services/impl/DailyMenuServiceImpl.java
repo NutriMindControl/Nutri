@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import static java.lang.Math.pow;
 import static talky.dietcontrol.services.impl.ChangeServiceImpl.fillTotalParams;
 
 @Slf4j
@@ -77,7 +78,8 @@ public class DailyMenuServiceImpl implements DailyMenuService {
         double bmr = dailyCalorieNeeds.calculateDailyCalorieNeeds(menuInfoDTO);
 
         DailyMenuDTO dailyMenuDTO = new DailyMenuDTO();
-        fillTotalParams(dailyMenuDTO, bmr);
+        double imt = menuInfoDTO.getWeight() / pow(menuInfoDTO.getHeight() / 100.0, 2);
+        fillTotalParams(dailyMenuDTO, bmr, imt);
 
         List<ProductDTO> allowedProductsForSelfConsumption = productService.findAllowedProductsForSelfConsumptionForDiagnose(menuInfoDTO.getDiagnoseId());
         List<RecipeDTO> allowedRecipes = recipeService.findAllowedRecipesForDiagnose(menuInfoDTO.getDiagnoseId());

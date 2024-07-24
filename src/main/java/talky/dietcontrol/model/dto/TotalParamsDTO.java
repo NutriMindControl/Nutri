@@ -31,10 +31,14 @@ public class TotalParamsDTO {
     @JsonProperty("daily_carbohydrate_needs")
     private Double dailyCarbohydrateNeeds;
 
-    public TotalParamsDTO(double requiredCalories, double dailyProteinNeeds, double dailyFatNeeds, double dailyCarbohydrateNeeds) {
+    @JsonProperty("imt")
+    private Double imt;
+
+    public TotalParamsDTO(double requiredCalories, double dailyProteinNeeds, double dailyFatNeeds, double dailyCarbohydrateNeeds, double imt) {
         this.requiredCalories = requiredCalories;
         this.dailyProteinNeeds = dailyProteinNeeds;
         this.dailyFatNeeds = dailyFatNeeds;
         this.dailyCarbohydrateNeeds = dailyCarbohydrateNeeds;
+        this.imt = imt;
     }
 }

@@ -198,7 +198,10 @@
                           th:text="${#numbers.formatDecimal(mealData.totalParams.totalCarbohydrates, 0, 'COMMA', 2, 'POINT')} + ' / ' + ${#numbers.formatDecimal(mealData.totalParams.dailyCarbohydrateNeeds, 0, 'COMMA', 2, 'POINT')}"></span>
                     г
                 </p>
-
+                <p><strong>Индекс массы тела</strong>
+                    <span class="value"
+                          th:text="${#numbers.formatDecimal(mealData.totalParams.imt, 0, 'COMMA', 2, 'POINT')}"></span>
+                </p>
             </div>
         </div>
     </section>
@@ -265,7 +268,8 @@
                 <div class="ingredient-name"
                      th:text="${ingredient.productName}"></div>
                 <div class="ingredient-details">
-                    <span th:text="${ingredient.serving}"></span> гр
+                    <span th:text="${#numbers.formatDecimal(ingredient.serving, 0, 'COMMA', 2, 'POINT')}"></span>
+                    гр
                 </div>
             </div>
         </div>
@@ -284,10 +288,10 @@
             </thead>
             <tbody>
             <tr>
-                <td th:text="${mealData.breakfastMeals.calories}"></td>
-                <td th:text="${mealData.breakfastMeals.proteins}"></td>
-                <td th:text="${mealData.breakfastMeals.fats}"></td>
-                <td th:text="${mealData.breakfastMeals.carbohydrates}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.breakfastMeals.calories, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.breakfastMeals.proteins, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.breakfastMeals.fats, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.breakfastMeals.carbohydrates, 0, 'COMMA', 2, 'POINT')}"></td>
             </tr>
             </tbody>
         </table>
@@ -356,7 +360,8 @@
                 <div class="ingredient-name"
                      th:text="${ingredient.productName}"></div>
                 <div class="ingredient-details">
-                    <span th:text="${ingredient.serving}"></span> гр
+                    <span th:text="${#numbers.formatDecimal(ingredient.serving, 0, 'COMMA', 2, 'POINT')}"></span>
+                    гр
                 </div>
             </div>
         </div>
@@ -374,10 +379,10 @@
             </thead>
             <tbody>
             <tr>
-                <td th:text="${mealData.lunchMeals.calories}"></td>
-                <td th:text="${mealData.lunchMeals.proteins}"></td>
-                <td th:text="${mealData.lunchMeals.fats}"></td>
-                <td th:text="${mealData.lunchMeals.carbohydrates}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.lunchMeals.calories, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.lunchMeals.proteins, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.lunchMeals.fats, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.lunchMeals.carbohydrates, 0, 'COMMA', 2, 'POINT')}"></td>
             </tr>
             </tbody>
         </table>
@@ -445,7 +450,8 @@
                 <div class="ingredient-name"
                      th:text="${ingredient.productName}"></div>
                 <div class="ingredient-details">
-                    <span th:text="${ingredient.serving}"></span> гр
+                    <span th:text="${#numbers.formatDecimal(ingredient.serving, 0, 'COMMA', 2, 'POINT')}"></span>
+                    гр
                 </div>
             </div>
         </div>
@@ -463,10 +469,10 @@
             </thead>
             <tbody>
             <tr>
-                <td th:text="${mealData.dinnerMeals.calories}"></td>
-                <td th:text="${mealData.dinnerMeals.proteins}"></td>
-                <td th:text="${mealData.dinnerMeals.fats}"></td>
-                <td th:text="${mealData.dinnerMeals.carbohydrates}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.dinnerMeals.calories, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.dinnerMeals.proteins, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.dinnerMeals.fats, 0, 'COMMA', 2, 'POINT')}"></td>
+                <td th:text="${#numbers.formatDecimal(mealData.dinnerMeals.carbohydrates, 0, 'COMMA', 2, 'POINT')}"></td>
             </tr>
             </tbody>
         </table>

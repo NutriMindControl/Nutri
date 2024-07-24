@@ -159,11 +159,11 @@ public class ChangeServiceImpl implements ChangeService {
     }
 
 
-    public static void fillTotalParams(DailyMenuDTO dailyMenuDTO, double bmr) {
+    public static void fillTotalParams(DailyMenuDTO dailyMenuDTO, double bmr, double imt) {
         double dailyProteinNeeds = bmr * 0.3 / 4.1;
         double dailyFatNeeds = bmr * 0.3 / 9.3;
         double dailyCarbohydrateNeeds = bmr * 0.4 / 4.1;
-        TotalParamsDTO totalParamsDTO = new TotalParamsDTO(bmr, dailyProteinNeeds, dailyFatNeeds, dailyCarbohydrateNeeds);
+        TotalParamsDTO totalParamsDTO = new TotalParamsDTO(bmr, dailyProteinNeeds, dailyFatNeeds, dailyCarbohydrateNeeds, imt);
         dailyMenuDTO.setDate(LocalDate.now());
         dailyMenuDTO.setTotalParams(totalParamsDTO);
     }

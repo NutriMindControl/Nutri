@@ -132,6 +132,7 @@ public class RecipeServiceImpl implements RecipeService {
                 totalFat += recipe.getFats();
                 totalCarbs += recipe.getCarbohydrates();
             }
+            if (selectedRecipes.size() == 2) break;
         }
         log.info("Recipes with dishes were added: {}", selectedRecipes);
 
