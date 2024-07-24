@@ -2,11 +2,20 @@ name: Deploy by runner
 
 on:
   push:
-    branches: [ "master", "develop", "ci-cd" ]
+    branches: [ "main", "ci-cd" ]
 
 jobs:
   prepare-prod:
     runs-on: self-hosted
+    environment: prod
+    env:
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+      DB_PORT: ${{ vars.DB_PORT }}
+      ENABLE_SSL: ${{ vars.ENABLE_SSL }}
+      SERVER_PORT: ${{ vars.SERVER_PORT }}
+      ENABLE_HTTP2: ${{ vars.ENABLE_HTTP2 }}
+      BASELINE_ON_MIGRATE: ${{ vars.BASELINE_ON_MIGRATE }}
     steps:
       - name: Stop and remove containers, networks
         run: docker-compose -f docker/docker-compose.yml down

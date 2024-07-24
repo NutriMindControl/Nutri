@@ -53,6 +53,19 @@ CREATE TABLE IF NOT EXISTS diagnosis_synonyms
     PRIMARY KEY (diagnose_id, diagnosis_synonyms)
 );
 
+COPY products (product_id, product_name, daily_dose, water, protein, fat, sfa, cholesterol, pufa, starch, carbohydrates,
+               dietary_fiber, organic_acids, ash, sodium, potassium, calcium, magnesium, phosphorus, iron, retinol,
+               carotene, retinol_equivalent, tocopherol_equivalent, thiamine, riboflavin, niacin, niacin_equivalent,
+               ascorbic_acid, energy_value, serving, categories, subcategories, subcategories2, subcategories3,
+               subcategories4)
+    FROM '/csv-data/NutriMind_products.csv' DELIMITER ',' CSV HEADER;
+
+COPY diagnosis (diagnose_id, code, icd_10_code, diagnosis_description)
+    FROM '/csv-data/NutriMind_diagnoses.csv' DELIMITER ',' CSV HEADER;
+
+COPY diagnosis_synonyms (diagnose_id, diagnosis_synonyms)
+    FROM '/csv-data/NutriMind_diagnosesSymptomes.csv' DELIMITER ',' CSV HEADER;
+
 CREATE TEMP TABLE IF NOT EXISTS temp_nutrition_table
 (
     product_id BIGINT PRIMARY KEY,
@@ -69,7 +82,8 @@ CREATE TABLE IF NOT EXISTS product_category_prohibitions
     category_number INT    NOT NULL
 );
 
-
+COPY temp_nutrition_table (product_id, zero, one, two, three)
+    FROM '/csv-data/NutriMind_productsAllowed.csv' DELIMITER ',' CSV HEADER;
 
 INSERT INTO product_category_prohibitions (id, product_id, category_number)
 SELECT row_number() OVER () AS id, product_id, category_number
