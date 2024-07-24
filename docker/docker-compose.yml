@@ -10,7 +10,7 @@ services:
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
     ports:
-      - "5433:5432"
+      - "${DB_PORT}:5432"
     restart: always
 
   back:
@@ -22,17 +22,16 @@ services:
       DATASOURCE_URL: jdbc:postgresql://postgresql:5432/backend
       DATASOURCE_USERNAME: ${DB_USER}
       DATASOURCE_PASSWORD: ${DB_PASSWORD}
-
       SCHEMA_NAME: public
 
-      ENABLE_SSL: "false"
+      ENABLE_SSL: ${ENABLE_SSL}
 
       SERVER_PORT: 8080
-      ENABLE_HTTP2: "false"
+      ENABLE_HTTP2: ${ENABLE_HTTP2}
 
-      BASELINE_ON_MIGRATE: "false"
+      BASELINE_ON_MIGRATE: ${BASELINE_ON_MIGRATE}
     ports:
-      - "5756:8080"
+      - "${SERVER_PORT}:8080"
     depends_on:
       - postgresql
     restart: always
