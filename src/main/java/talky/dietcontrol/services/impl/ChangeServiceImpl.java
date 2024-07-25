@@ -130,7 +130,7 @@ public class ChangeServiceImpl implements ChangeService {
         return bestProduct;
     }
 
-    private <T extends BaseDTOWithNutrientsMethods> double calculateDifference(T product, TotalParamsDTO totalParams) {
+    protected <T extends BaseDTOWithNutrientsMethods> double calculateDifference(T product, TotalParamsDTO totalParams) {
         double difference = 0;
         difference += Math.abs(product.getCalories() - (totalParams.getRequiredCalories() - totalParams.getTotalCalories()));
         difference += Math.abs(product.getProteins() - (totalParams.getDailyProteinNeeds() - totalParams.getTotalProteins()));

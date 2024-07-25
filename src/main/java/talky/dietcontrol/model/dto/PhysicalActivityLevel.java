@@ -1,15 +1,18 @@
 package talky.dietcontrol.model.dto;
 
+import lombok.Getter;
+
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
 public enum PhysicalActivityLevel {
     NONE("Отсутствие физической активности", 1.0),
-    LOW("Низкая", 1.2),
-    MODERATE("Умеренная", 1.375),
-    ABOVE_AVERAGE("Выше среднего", 1.55),
-    HIGH("Высокая", 1.725),
-    VERY_HIGH("Очень высокая", 1.9);
+    LOW("Низкая физическая активность", 1.2),
+    MODERATE("Умеренная физическая активность", 1.375),
+    ABOVE_AVERAGE("Физическая активность выше среднего", 1.55),
+    HIGH("Высокая физическая активность", 1.725),
+    VERY_HIGH("Очень высокая физическая активность", 1.9);
 
     private final String description;
     private final double multiplier;
@@ -17,14 +20,6 @@ public enum PhysicalActivityLevel {
     PhysicalActivityLevel(String description, double multiplier) {
         this.description = description;
         this.multiplier = multiplier;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public double getMultiplier() {
-        return multiplier;
     }
 
     public static PhysicalActivityLevel fromDescription(String description) {

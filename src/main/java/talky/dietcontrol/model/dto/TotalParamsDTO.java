@@ -1,11 +1,13 @@
 package talky.dietcontrol.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class TotalParamsDTO {
     @JsonProperty("total_calories")
     private Double totalCalories;

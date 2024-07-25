@@ -7,13 +7,13 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import talky.dietcontrol.config.Constants;
+import talky.dietcontrol.exceptions.BadRequestException;
 import talky.dietcontrol.exceptions.NotFoundException;
 import talky.dietcontrol.model.dto.CategoryDto;
 import talky.dietcontrol.model.dto.Meal;
 import talky.dietcontrol.model.dto.RecipeDTO;
 import talky.dietcontrol.model.entities.Diagnosis;
 import talky.dietcontrol.model.entities.ProductCategoryProhibition;
-import talky.dietcontrol.model.mappers.DefaultMapper;
 import talky.dietcontrol.repository.ProductCategoryProhibitionRepository;
 import talky.dietcontrol.services.interfaces.DiagnosisService;
 import talky.dietcontrol.services.interfaces.RecipeService;
@@ -30,17 +30,14 @@ public class RecipeServiceImpl implements RecipeService {
     private final ObjectMapper objectMapper = new ObjectMapper();
     private final ProductCategoryProhibitionRepository productRepository;
     private final Random random = new Random();
-    private final DefaultMapper modelMapper;
 
-    public RecipeServiceImpl(RestTemplate restTemplate, DiagnosisService diagnosisService, ProductCategoryProhibitionRepository productRepository, DefaultMapper modelMapper) {
+    public RecipeServiceImpl(RestTemplate restTemplate, DiagnosisService diagnosisService, ProductCategoryProhibitionRepository productRepository) {
         this.restTemplate = restTemplate;
         this.diagnosisService = diagnosisService;
         this.productRepository = productRepository;
-        this.modelMapper = modelMapper;
     }
 
-    private List<RecipeDTO> filterRecipesByCategory
-            (List<RecipeDTO> recipes, String dayTime) {
+    private List<RecipeDTO> filterRecipesByCategory(List<RecipeDTO> recipes, String dayTime) {
         log.info("Trying to find recipes for daytime {}", dayTime);
 
         List<RecipeDTO> allowedRecipes = new ArrayList<>();
@@ -78,8 +75,9 @@ public class RecipeServiceImpl implements RecipeService {
         HttpEntity<String> requestEntity = new HttpEntity<>(notAllowedProductsIdsList, headers);
 
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, requestEntity, String.class);
-        if (responseEntity.getStatusCode() != HttpStatus.OK) {
-            throw new NotFoundException("Failed to fetch recipes. Status code: " + responseEntity.getStatusCode());
+
+        if (responseEntity.getStatusCode() == HttpStatus.BAD_REQUEST) {
+            throw new BadRequestException("Failed to fetch recipes. Status code: " + responseEntity.getStatusCode());
         }
         if (responseEntity.getBody() == null) {
             log.error("Couldn't get recipes, check diagnoseId");
@@ -93,24 +91,6 @@ public class RecipeServiceImpl implements RecipeService {
         return recipes;
     }
 
-    public List<RecipeDTO> mapToRecipeDTOList(List<Map<String, Object>> recipeList) {
-        List<RecipeDTO> recipeDTOs = new ArrayList<>();
-
-        for (Map<String, Object> map : recipeList) {
-            RecipeDTO recipeDTO = modelMapper.map(map, RecipeDTO.class);
-
-            // Map each field from the map to the RecipeDTO
-            recipeDTO.setRecipeName((String) map.get("name"));
-            recipeDTO.setRecipeId(Long.parseLong(String.valueOf(map.get("id"))));
-            recipeDTO.setCookTimeMins((Integer) map.get("cook_time_mins"));
-            recipeDTO.setPrepTimeMins((Integer) map.get("prep_time_mins"));
-
-            recipeDTOs.add(recipeDTO);
-        }
-
-        return recipeDTOs;
-    }
-
     public List<RecipeDTO> findRecipeWithinRangeAndCategory(List<RecipeDTO> recipes, Meal meal, String category) {
         log.info("Started filling meal with dishes");
         List<RecipeDTO> recipesDTO = filterRecipesByCategory(recipes, category);
@@ -122,10 +102,7 @@ public class RecipeServiceImpl implements RecipeService {
         int totalFat = 0;
         int totalCarbs = 0;
         for (RecipeDTO recipe : recipesDTO) {
-            if (totalCalories + recipe.getKilocalories() <= meal.getExpectedKilocalories()[1] &&
-                    totalProtein + recipe.getProteins() <= meal.getExpectedProteins()[1] &&
-                    totalFat + recipe.getFats() <= meal.getExpectedFats()[1] &&
-                    totalCarbs + recipe.getCarbohydrates() <= meal.getExpectedCarbohydrates()[1]) {
+            if (totalCalories + recipe.getKilocalories() <= meal.getExpectedKilocalories()[1] && totalProtein + recipe.getProteins() <= meal.getExpectedProteins()[1] && totalFat + recipe.getFats() <= meal.getExpectedFats()[1] && totalCarbs + recipe.getCarbohydrates() <= meal.getExpectedCarbohydrates()[1]) {
                 selectedRecipes.add(recipe);
                 totalCalories += recipe.getKilocalories();
                 totalProtein += recipe.getProteins();

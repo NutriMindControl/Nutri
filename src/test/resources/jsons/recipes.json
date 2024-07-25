@@ -1,0 +1,133 @@
+[
+  {
+    "name": "Запеканка с булгуром и индейкой",
+    "id": 696,
+    "media_id": 3203,
+    "cook_time_mins": 30,
+    "author_uid": "root",
+    "prep_time_mins": null,
+    "servings": 4,
+    "kilocalories": 628.13,
+    "proteins": 82.51,
+    "fats": 30.13,
+    "carbohydrates": 6.63,
+    "ingredients_distributions": [
+      {
+        "name": "сыра",
+        "measure_unit_name": "грамм (гр)",
+        "count": 150.0,
+        "ingredient_id": 1374
+      },
+      {
+        "name": "кипятка",
+        "measure_unit_name": "грамм (гр)",
+        "count": 250.0,
+        "ingredient_id": 2094
+      },
+      {
+        "name": "филе индейки",
+        "measure_unit_name": "грамм (гр)",
+        "count": 500.0,
+        "ingredient_id": 2837
+      },
+      {
+        "name": "булгура (в сухом виде)",
+        "measure_unit_name": "миллилитр (мл)",
+        "count": 250.0,
+        "ingredient_id": 3702
+      },
+      {
+        "name": "вяленых томатов",
+        "measure_unit_name": "грамм (гр)",
+        "count": 50.0,
+        "ingredient_id": 3703
+      }
+    ],
+    "steps": [
+      {
+        "media_id": 3204,
+        "description": "Булгур залить кипятком и оставить набухать.",
+        "step_num": 0,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3205,
+        "description": "Филе порезать на мелкие кусочки.",
+        "step_num": 1,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3206,
+        "description": "Лук и перец помыть и очистить.",
+        "step_num": 2,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3207,
+        "description": "Вяленые помидоры мелко порезать.",
+        "step_num": 3,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3208,
+        "description": "Сыр натереть на средней тёрке.",
+        "step_num": 4,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3209,
+        "description": "Лук и перец измельчить в блендере.",
+        "step_num": 5,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3210,
+        "description": "Соединить индейку, овощи, яйца, добавить вяленые помидоры, половину натертого сыра, специи и соль.",
+        "step_num": 6,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3211,
+        "description": "Все хорошо перемешать.",
+        "step_num": 7,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3212,
+        "description": "Получившуюся массу добавить к набухшему булгуру и еще раз хорошо перемешать.",
+        "step_num": 8,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3213,
+        "description": "Форму для выпечки застелить пергаментом и выложить в нее получившуюся смесь.",
+        "step_num": 9,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": null,
+        "description": "Поставить в духовку на 40 минут, при температуре 180 градусов.",
+        "step_num": 10,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3214,
+        "description": "Через 40 минут вытащить, посыпать оставшимся сыром и поставить еще в духовку на 3-5 минут.",
+        "step_num": 11,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": 3215,
+        "description": "Через 3-5 минут достаём запеканку, даем немного остыть и подаем к столу.",
+        "step_num": 12,
+        "wait_time_mins": null
+      },
+      {
+        "media_id": null,
+        "description": "Приятного аппетита !",
+        "step_num": 13,
+        "wait_time_mins": null
+      }
+    ]
+  }
+]

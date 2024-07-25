@@ -1,0 +1,392 @@
+{
+  "date": "2024-07-25",
+  "breakfast_meals": {
+    "recipes": [
+      {
+        "calories": 304.16,
+        "name": "Яичная запеканка с фаршем",
+        "id": 6208,
+        "cook_time_mins": 80,
+        "prep_time_mins": null,
+        "servings": 4,
+        "kilocalories": 304.16,
+        "proteins": 7.18,
+        "fats": 8.63,
+        "carbohydrates": 50.37,
+        "ingredients_distributions": [
+          {
+            "name": "яиц",
+            "measure_unit_name": "грамм (гр)",
+            "count": 8.0,
+            "ingredient_id": 1023
+          },
+          {
+            "name": "паприки",
+            "measure_unit_name": "грамм (гр)",
+            "count": 150.0,
+            "ingredient_id": 1261
+          },
+          {
+            "name": "грибов",
+            "measure_unit_name": "грамм (гр)",
+            "count": 200.0,
+            "ingredient_id": 6110
+          },
+          {
+            "name": "говяжьего фарша",
+            "measure_unit_name": "грамм (гр)",
+            "count": 500.0,
+            "ingredient_id": 8244
+          }
+        ]
+      },
+      {
+        "calories": 341.5,
+        "name": "Несладкий пирог с кабачком и творогом",
+        "id": 5078,
+        "cook_time_mins": 50,
+        "prep_time_mins": null,
+        "servings": 4,
+        "kilocalories": 341.5,
+        "proteins": 21.96,
+        "fats": 14.05,
+        "carbohydrates": 31.9,
+        "ingredients_distributions": [
+          {
+            "name": "разрыхлитель",
+            "measure_unit_name": "штука (шт) ~200гр",
+            "count": 1.0,
+            "ingredient_id": 28
+          },
+          {
+            "name": "подсолнечное масло",
+            "measure_unit_name": "штука (шт) ~50гр",
+            "count": 50.0,
+            "ingredient_id": 450
+          },
+          {
+            "name": "мука пшеничная",
+            "measure_unit_name": "грамм (гр)",
+            "count": 150.0,
+            "ingredient_id": 619
+          },
+          {
+            "name": "кабачок (46 г натёртого)",
+            "measure_unit_name": "штука (шт) ~200гр",
+            "count": 1.0,
+            "ingredient_id": 15366
+          },
+          {
+            "name": "творо хорошео качества",
+            "measure_unit_name": "миллилитр (мл)",
+            "count": 300.0,
+            "ingredient_id": 15367
+          }
+        ]
+      }
+    ],
+    "products": [
+      {
+        "proteins": 5.957356799793588,
+        "fats": 7.641504080747893,
+        "carbohydrates": 0.0,
+        "calories": 94.26197468027829,
+        "serving": 25.136526581407544,
+        "categories": "Молоко и молочные продукты",
+        "product_id": 898,
+        "product_name": "Сыр Голландский (круглый)"
+      },
+      {
+        "proteins": 29.254357758133246,
+        "fats": 1.8283973598833279,
+        "carbohydrates": 18.893439385461054,
+        "calories": 213.3130253197216,
+        "serving": 609.465786627776,
+        "categories": "Овощи, грибы и продукты их переработки",
+        "product_id": 68,
+        "product_name": "Брюссельская"
+      },
+      {
+        "proteins": 3.225,
+        "fats": 5.225,
+        "carbohydrates": 0.22500000000000003,
+        "calories": 60.75000000000001,
+        "serving": 25.0,
+        "categories": "Яйцепродукты",
+        "product_id": 1075,
+        "product_name": "Яичница глазунья по 1-312"
+      }
+    ],
+    "fats": 37.37490144063122,
+    "carbohydrates": 101.38843938546106,
+    "proteins": 67.57671455792683,
+    "calories": 1013.9849999999999
+  },
+  "lunch_meals": {
+    "recipes": [
+      {
+        "calories": 352.35,
+        "name": "Плов из говядины с морковью по корейски в мультиварке )",
+        "id": 246,
+        "cook_time_mins": 30,
+        "prep_time_mins": null,
+        "servings": 4,
+        "kilocalories": 352.35,
+        "proteins": 17.3,
+        "fats": 20.14,
+        "carbohydrates": 26.3,
+        "ingredients_distributions": [
+          {
+            "name": "лук репчатый",
+            "measure_unit_name": "штука (шт) ~200гр",
+            "count": 1.0,
+            "ingredient_id": 17
+          },
+          {
+            "name": "растительное масло",
+            "measure_unit_name": "штука (шт) ~50гр",
+            "count": 30.0,
+            "ingredient_id": 31
+          },
+          {
+            "name": "говядина",
+            "measure_unit_name": "грамм (гр)",
+            "count": 300.0,
+            "ingredient_id": 1564
+          },
+          {
+            "name": "Крупа рисовая (длиннозерный)",
+            "measure_unit_name": "грамм (гр)",
+            "count": 100.0,
+            "ingredient_id": 1565
+          },
+          {
+            "name": "морковь по корейски",
+            "measure_unit_name": "штука (шт) ~200гр",
+            "count": 1.0,
+            "ingredient_id": 1567
+          }
+        ]
+      },
+      {
+        "calories": 375.84,
+        "name": "Нежнейшая запеканка",
+        "id": 1013,
+        "cook_time_mins": 50,
+        "prep_time_mins": null,
+        "servings": 4,
+        "kilocalories": 375.84,
+        "proteins": 33.3,
+        "fats": 9.71,
+        "carbohydrates": 38.52,
+        "ingredients_distributions": [
+          {
+            "name": "творог",
+            "measure_unit_name": "миллилитр (мл)",
+            "count": 500.0,
+            "ingredient_id": 38
+          },
+          {
+            "name": "яйца",
+            "measure_unit_name": "штука (шт) ~50гр",
+            "count": 3.0,
+            "ingredient_id": 61
+          },
+          {
+            "name": "гр сахара",
+            "measure_unit_name": "грамм (гр)",
+            "count": 100.0,
+            "ingredient_id": 62
+          },
+          {
+            "name": "сметаны",
+            "measure_unit_name": "миллилитр (мл)",
+            "count": 150.0,
+            "ingredient_id": 545
+          },
+          {
+            "name": "ванильный сахар",
+            "measure_unit_name": "грамм (гр)",
+            "count": 5.0,
+            "ingredient_id": 620
+          },
+          {
+            "name": "кукурузного крахмала",
+            "measure_unit_name": "грамм (гр)",
+            "count": 30.0,
+            "ingredient_id": 2463
+          }
+        ]
+      }
+    ],
+    "products": [
+      {
+        "proteins": 41.25969512195123,
+        "fats": 15.095010410469966,
+        "carbohydrates": 59.373707614515205,
+        "calories": 573.6103955978587,
+        "serving": 1006.3340273646644,
+        "categories": "Молоко и молочные продукты",
+        "product_id": 238,
+        "product_name": "Йогурт 1,5 % жирности"
+      },
+      {
+        "proteins": 0.7250000000000016,
+        "fats": 1.1250000000000024,
+        "carbohydrates": 1.8500000000000045,
+        "calories": 20.750000000000046,
+        "serving": 25.000000000000057,
+        "categories": "Овощи, грибы и продукты их переработки",
+        "product_id": 27,
+        "product_name": "Баклажаны, фаршированные овощами по 1-266"
+      },
+      {
+        "proteins": 0.1,
+        "fats": 0.075,
+        "carbohydrates": 2.575,
+        "calories": 11.75,
+        "serving": 25.0,
+        "categories": "Фрукты, ягоды и продукты их переработки",
+        "product_id": 162,
+        "product_name": "Груша"
+      },
+      {
+        "proteins": 0.2,
+        "fats": 0.05,
+        "carbohydrates": 1.875,
+        "calories": 9.5,
+        "serving": 25.0,
+        "categories": "Фрукты, ягоды и продукты их переработки",
+        "product_id": 447,
+        "product_name": "Мандарин"
+      }
+    ],
+    "fats": 46.19501041046997,
+    "carbohydrates": 130.4937076145152,
+    "proteins": 92.88469512195122,
+    "calories": 1343.8003955978588
+  },
+  "dinner_meals": {
+    "recipes": [
+      {
+        "calories": 222.23,
+        "name": "Фрикадельки",
+        "id": 38,
+        "cook_time_mins": 20,
+        "prep_time_mins": null,
+        "servings": 4,
+        "kilocalories": 222.23,
+        "proteins": 15.73,
+        "fats": 12.64,
+        "carbohydrates": 11.89,
+        "ingredients_distributions": [
+          {
+            "name": "зелень",
+            "measure_unit_name": "грамм (гр)",
+            "count": 50.0,
+            "ingredient_id": 8
+          },
+          {
+            "name": "фрикадельки",
+            "measure_unit_name": "грамм (гр)",
+            "count": 300.0,
+            "ingredient_id": 29
+          },
+          {
+            "name": "томатная паста",
+            "measure_unit_name": "грамм (гр)",
+            "count": 100.0,
+            "ingredient_id": 30
+          },
+          {
+            "name": "растительное масло",
+            "measure_unit_name": "штука (шт) ~50гр",
+            "count": 2.0,
+            "ingredient_id": 31
+          }
+        ]
+      },
+      {
+        "calories": 493.12,
+        "name": "Пирог с голубикой",
+        "id": 9763,
+        "cook_time_mins": 30,
+        "prep_time_mins": null,
+        "servings": 4,
+        "kilocalories": 493.12,
+        "proteins": 6.14,
+        "fats": 19.52,
+        "carbohydrates": 74.15,
+        "ingredients_distributions": [
+          {
+            "name": "гр сахара",
+            "measure_unit_name": "грамм (гр)",
+            "count": 151.0,
+            "ingredient_id": 62
+          },
+          {
+            "name": "гр муки",
+            "measure_unit_name": "грамм (гр)",
+            "count": 203.0,
+            "ingredient_id": 66
+          },
+          {
+            "name": "подсолнечное масло",
+            "measure_unit_name": "штука (шт) ~50гр",
+            "count": 70.0,
+            "ingredient_id": 450
+          },
+          {
+            "name": "сметаны",
+            "measure_unit_name": "столовая ложка (ст.л.)",
+            "count": 3.0,
+            "ingredient_id": 545
+          },
+          {
+            "name": "соды пищевой гасим уксусом ст. или разрыхлитель",
+            "measure_unit_name": "чайная ложка (ч.л.)",
+            "count": 1.0,
+            "ingredient_id": 6399
+          }
+        ]
+      }
+    ],
+    "products": [
+      {
+        "proteins": 1.7769071872940037,
+        "fats": 2.961511978823339,
+        "carbohydrates": 10.957594321646356,
+        "calories": 77.73968944411266,
+        "serving": 74.03779947058348,
+        "categories": "Зерно и продукты его переработки",
+        "product_id": 278,
+        "product_name": "Каша из хлопьев «Геркулес» по 1-280"
+      },
+      {
+        "proteins": 42.71895261644075,
+        "fats": 1.8846596742547392,
+        "carbohydrates": 0.0,
+        "calories": 186.37190112074643,
+        "serving": 209.4066304727488,
+        "categories": "Мясо и мясные продукты",
+        "product_id": 942,
+        "product_name": "Телятина 2 кат."
+      }
+    ],
+    "fats": 37.00617165307808,
+    "carbohydrates": 96.99759432164636,
+    "proteins": 66.36585980373475,
+    "calories": 979.4615905648591
+  },
+  "total_params": {
+    "total_calories": 3337.246986162718,
+    "total_fats": 120.57608350417927,
+    "total_proteins": 226.8272694836128,
+    "total_carbohydrates": 328.8797413216226,
+    "required_calories": 3219.0,
+    "daily_protein_needs": 235.53658536585365,
+    "daily_fat_needs": 103.83870967741935,
+    "daily_carbohydrate_needs": 314.04878048780495,
+    "imt": 21.975868536715097
+  }
+}

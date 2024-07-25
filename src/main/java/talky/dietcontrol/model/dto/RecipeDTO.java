@@ -3,12 +3,16 @@ package talky.dietcontrol.model.dto;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RecipeDTO implements BaseDTOWithNutrientsMethods {
     @JsonProperty("name")
     private String recipeName = null;

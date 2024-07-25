@@ -28,7 +28,7 @@ public class DailyMenuDTO {
     private MealDTO dinnerMeals = new MealDTO();
 
     @JsonProperty("total_params")
-    private TotalParamsDTO totalParams;
+    private TotalParamsDTO totalParams = new TotalParamsDTO();
 
     @JsonIgnore
     public List<ProductDTO> getAllProducts() {
