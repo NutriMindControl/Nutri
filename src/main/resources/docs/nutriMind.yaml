@@ -385,19 +385,19 @@ components:
           type: string
           description: Пол пользователя
           example: "Муж./Жен."
-        physicalActivityLevel:
+        physical_activity_level:
           type: string
           description: Уровень физической активности
           enum: [ "Отсутствие физической активности", "Низкая", "Умеренная", "Выше среднего", "Высокая", "Очень высокая" ]
           example: "Умеренная"
-        diagnoseId:
+        diagnose_id:
           type: integer
           description: Id болезни пользователя
           example: 1
     DiagnosisDTO:
       type: object
       properties:
-        diagnoseId:
+        diagnose_id:
           type: integer
           format: int64
           description: Идентификатор диагноза
@@ -406,7 +406,7 @@ components:
           type: string
           description: Код диагноза
           example: "A00"
-        icd10Code:
+        icd10code:
           type: string
           description: Код по МКБ-10
           example: "A00.0"
@@ -479,7 +479,7 @@ components:
         carbohydrates:
           type: number
           description: Содержание углеводов в продукте
-        energyValue:
+        calories:
           type: number
           description: Энергетическая ценность продукта
         serving:
