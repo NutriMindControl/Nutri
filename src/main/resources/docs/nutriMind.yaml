@@ -10,7 +10,7 @@ tags:
     description: API для диагнозов
 
 servers:
-  - url: http://localhost:5756/api/v1
+  - url: 37.230.116.111:5756/api/v1
     description: Продукционный сервер
 paths:
   /daily-menu:
@@ -470,10 +470,10 @@ components:
         product_name:
           type: string
           description: Название продукта
-        protein:
+        proteins:
           type: number
           description: Содержание белков в продукте
-        fat:
+        fats:
           type: number
           description: Содержание жиров в продукте
         carbohydrates:
@@ -489,16 +489,20 @@ components:
           type: string
           description: Категории продукта
       required:
-        - productId
-        - productName
+        - proteins
+        - fats
+        - carbohydrates
+        - calories
+        - product_id
+        - product_name
         - categories
     RecipeDTO:
       type: object
       properties:
-        recipe_id:
+        id:
           type: integer
           description: ID рецепта
-        recipe_name:
+        name:
           type: string
           description: Название рецепта
         cook_time_mins:
@@ -514,7 +518,7 @@ components:
         servings:
           type: integer
           description: Количество порций
-        kilocalories:
+        calories:
           type: number
           description: Калории на порцию
         proteins:
@@ -549,7 +553,6 @@ components:
         - cook_time_mins
         - author_uid
         - servings
-        - kilocalories
         - proteins
         - fats
         - carbohydrates
@@ -624,7 +627,7 @@ components:
           items:
             $ref: '#/components/schemas/ProductDTO'
           description: Список продуктов
-        kilocalories:
+        calories:
           type: number
           description: Калории
         fats:
@@ -639,7 +642,7 @@ components:
       required:
         - recipes
         - products
-        - kilocalories
+        - calories
         - fats
         - carbohydrates
         - proteins

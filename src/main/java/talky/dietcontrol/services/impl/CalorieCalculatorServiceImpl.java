@@ -30,9 +30,25 @@ public class CalorieCalculatorServiceImpl implements CalorieCalculatorService {
         double bmr;
 
         if (gender == Gender.MALE) {
-            bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+            if (age <= 3) {
+                bmr = (60.9 * weight) - 54;
+            } else if (age <= 10) {
+                bmr = (22.7 * weight) + 495;
+            } else if (age <= 18) {
+                bmr = (17.5 * weight) + 651;
+            } else {
+                bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+            }
         } else {
-            bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+            if (age <= 3) {
+                bmr = (60.0 * weight) - 51;
+            } else if (age <= 10) {
+                bmr = (22.5 * weight) + 499;
+            } else if (age <= 18) {
+                bmr = (12.2 * weight) + 746;
+            } else {
+                bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+            }
         }
 
         double dailyCalorieNeeds = bmr * physicalActivityLevel.getMultiplier();

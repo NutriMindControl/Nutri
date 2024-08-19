@@ -8,7 +8,7 @@ public class DiagnosisDTO {
     @JsonProperty("diagnose_id")
     private Long diagnoseId;
     @JsonProperty("code")
-    private String code;
+    private Long code;
     @JsonProperty("icd10code")
     private String icd10Code;
     @JsonProperty("diagnosis_description")

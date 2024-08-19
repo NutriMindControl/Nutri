@@ -76,6 +76,7 @@ public class ProductServiceImpl implements ProductService {
             List<ProductDTO> productDTOS = mutableList.subList(0, numberOfProductsToSelect);
             solved = solveNutrientBalance(adjustedProducts, productDTOS, remainingCalories, remainingProtein, remainingFat, remainingCarbs);
             log.debug(productDTOS.stream().map(ProductDTO::getProductName).toList().toString());
+            if (numberOfProductsToSelect == products.size()) break;
         } while (!solved);
 
         log.info("Products with dishes were added: {}", adjustedProducts.stream().map(ProductDTO::getProductName).toList());
