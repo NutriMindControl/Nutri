@@ -4,7 +4,7 @@ services:
     image: postgres:15
     volumes:
       - ../initdb:/docker-entrypoint-initdb.d
-      - ../src/main/resources/data:/csv-data # are used in migrations
+      - ../src/main/resources/csv-data:/csv-data # are used in migrations
       - nutri-db:/var/lib/porstgresql/data
     environment:
       POSTGRES_USER: ${DB_USER}
