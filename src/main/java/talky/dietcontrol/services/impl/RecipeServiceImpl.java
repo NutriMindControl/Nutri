@@ -39,6 +39,7 @@ public class RecipeServiceImpl implements RecipeService {
 
     private List<RecipeDTO> filterRecipesByCategory(List<RecipeDTO> recipes, String dayTime) {
         log.info("Trying to find recipes for daytime {}", dayTime);
+        String newDayTime = dayTimeName(dayTime);
 
         List<RecipeDTO> allowedRecipes = new ArrayList<>();
         for (RecipeDTO recipe : recipes) {
@@ -46,7 +47,7 @@ public class RecipeServiceImpl implements RecipeService {
             ResponseEntity<CategoryDto[]> responseEntity = restTemplate.getForEntity(URI.create(Constants.TALKY_URL + "/recipes/" + recipe.getRecipeId() + "/categories"), CategoryDto[].class);
 
             List<CategoryDto> categories = Arrays.asList(Objects.requireNonNull(responseEntity.getBody()));
-            boolean hasDayTimeCategory = categories.stream().anyMatch(categoryDto -> categoryDto.getName().equals(dayTime));
+            boolean hasDayTimeCategory = categories.stream().anyMatch(categoryDto -> categoryDto.getName().equals(newDayTime));
             if (hasDayTimeCategory) {
                 allowedRecipes.add(recipe);
             }
@@ -55,6 +56,13 @@ public class RecipeServiceImpl implements RecipeService {
             log.info("Recipe with daytime {} not found", dayTime);
         }
         return allowedRecipes;
+    }
+
+    private static String dayTimeName(String dayTime) {
+        if (dayTime.equals("lunch")) dayTime = "Обед";
+        else if (dayTime.equals("dinner")) dayTime = "Ужин";
+        else dayTime = "Завтрак";
+        return dayTime;
     }
 
 
