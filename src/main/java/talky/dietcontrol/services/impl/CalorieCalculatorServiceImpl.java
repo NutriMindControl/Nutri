@@ -19,6 +19,9 @@ import static talky.dietcontrol.services.impl.ProductServiceImpl.updateFixedProd
 @Slf4j
 @Service
 public class CalorieCalculatorServiceImpl implements CalorieCalculatorService {
+
+    public static final double CALORIES_COEF = 0.9;
+
     public double calculateDailyCalorieNeeds(MenuInfoDTO menuInfoDTO) {
         double weight = menuInfoDTO.getWeight();
         double height = menuInfoDTO.getHeight();
@@ -51,7 +54,7 @@ public class CalorieCalculatorServiceImpl implements CalorieCalculatorService {
             }
         }
 
-        double dailyCalorieNeeds = bmr * physicalActivityLevel.getMultiplier();
+        double dailyCalorieNeeds = bmr * physicalActivityLevel.getMultiplier() * CALORIES_COEF;
 
         return Math.round(dailyCalorieNeeds);
 

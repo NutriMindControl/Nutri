@@ -15,7 +15,12 @@ public interface ProductsRepository extends CrudRepository<Product, Long> {
                       IN (SELECT * FROM allowed_products) 
               AND p.product_id NOT IN (SELECT product_id 
                                        FROM product_category_prohibitions 
-                                       WHERE category_number = :diagnoseId)
+                                       WHERE category_number = (
+                                       SELECT code 
+                                       FROM diagnosis 
+                                       WHERE diagnose_id = :diagnoseId 
+                                       LIMIT 1)
+                                       )
             """, nativeQuery = true)
     List<Product> findAllowedProducts(@Param("diagnoseId") Long diagnoseId);
 
