@@ -5,7 +5,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import talky.dietcontrol.api.DailyMenuApi;
-import talky.dietcontrol.model.dto.*;
+import talky.dietcontrol.model.dto.dailymenu.DailyMenuDTO;
+import talky.dietcontrol.model.dto.dailymenu.MealTypeResponseDTO;
+import talky.dietcontrol.model.dto.dailymenu.MenuInfoDTO;
+import talky.dietcontrol.model.dto.products.ProductChangeResponseDTO;
+import talky.dietcontrol.model.dto.recipes.RecipeChangeResponseDTO;
 import talky.dietcontrol.services.interfaces.DailyMenuService;
 
 import java.util.List;

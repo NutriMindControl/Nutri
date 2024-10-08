@@ -4,11 +4,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.optim.PointValuePair;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
-import talky.dietcontrol.model.dto.Meal;
-import talky.dietcontrol.model.dto.MealDTO;
-import talky.dietcontrol.model.dto.ProductDTO;
-import talky.dietcontrol.model.dto.RecipeDTO;
+import talky.dietcontrol.model.dto.dailymenu.MealDTO;
+import talky.dietcontrol.model.dto.products.ProductDTO;
+import talky.dietcontrol.model.entities.Meal;
 import talky.dietcontrol.model.entities.Product;
+import talky.dietcontrol.model.entities.Recipe;
 import talky.dietcontrol.repository.ProductsRepository;
 import talky.dietcontrol.services.interfaces.ProductService;
 
@@ -90,14 +90,14 @@ public class ProductServiceImpl implements ProductService {
         return allowedProducts.stream().map(element -> modelMapper.map(element, ProductDTO.class)).toList();
     }
 
-    public void removeUsedProducts(List<ProductDTO> mutableList, List<RecipeDTO> mutableListRecipes, MealDTO meal) {
+    public void removeUsedProducts(List<ProductDTO> mutableList, List<Recipe> mutableListRecipes, MealDTO meal) {
         mutableList.removeIf(mutableItem ->
                 meal.getProducts().stream()
                         .anyMatch(mealItem -> Objects.equals(mealItem.getProductId(), mutableItem.getProductId()))
         );
         mutableListRecipes.removeIf(mutableItem ->
                 meal.getRecipes().stream()
-                        .anyMatch(mealItem -> Objects.equals(mealItem.getRecipeId(), mutableItem.getRecipeId()))
+                        .anyMatch(mealItem -> Objects.equals(mealItem.getRecipeId(), mutableItem.getId()))
         );
     }
 

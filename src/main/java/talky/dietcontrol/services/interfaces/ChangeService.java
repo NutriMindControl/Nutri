@@ -1,6 +1,14 @@
 package talky.dietcontrol.services.interfaces;
 
-import talky.dietcontrol.model.dto.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import talky.dietcontrol.model.dto.dailymenu.DailyMenuDTO;
+import talky.dietcontrol.model.dto.dailymenu.MealDTO;
+import talky.dietcontrol.model.dto.dailymenu.TotalParamsDTO;
+import talky.dietcontrol.model.dto.products.ProductChangeResponseDTO;
+import talky.dietcontrol.model.dto.products.ProductDTO;
+import talky.dietcontrol.model.dto.recipes.RecipeChangeResponseDTO;
+import talky.dietcontrol.model.dto.recipes.RecipeDTO;
+import talky.dietcontrol.model.entities.Meal;
 import talky.dietcontrol.model.entities.Product;
 
 import java.util.List;
@@ -10,7 +18,7 @@ public interface ChangeService {
 
     MealDTO getChangingMeal(String mealType, DailyMenuDTO dailyMenuDTO);
 
-    Meal createAndFillMeal(String mealType, List<ProductDTO> allowedProducts, List<RecipeDTO> allowedRecipes, TotalParamsDTO totalParams);
+    Meal createAndFillMeal(String mealType, List<ProductDTO> allowedProducts, Long diagnoseId, TotalParamsDTO totalParams) throws JsonProcessingException;
 
     ProductDTO getChangingProduct(Long productId, DailyMenuDTO dailyMenuDTO);
 

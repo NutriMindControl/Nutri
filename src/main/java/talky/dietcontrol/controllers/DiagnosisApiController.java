@@ -4,7 +4,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RestController;
 import talky.dietcontrol.api.DiagnosisApi;
-import talky.dietcontrol.model.dto.DiagnosisDTO;
+import talky.dietcontrol.model.dto.user.DiagnosisDTO;
 import talky.dietcontrol.services.interfaces.DiagnosisService;
 
 import java.util.List;

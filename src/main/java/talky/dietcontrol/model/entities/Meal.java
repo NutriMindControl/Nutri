@@ -1,7 +1,8 @@
-package talky.dietcontrol.model.dto;
+package talky.dietcontrol.model.entities;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import talky.dietcontrol.model.dto.products.ProductDTO;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +12,7 @@ import static talky.dietcontrol.services.impl.DailyMenuServiceImpl.*;
 @Data
 @Slf4j
 public class Meal {
-    List<RecipeDTO> recipes = new ArrayList<>();
+    List<Recipe> recipes = new ArrayList<>();
     List<ProductDTO> products = new ArrayList<>();
     Double[] expectedKilocalories;
     Double[] expectedFats;
@@ -37,10 +38,10 @@ public class Meal {
         }
 
         if (recipes != null && !recipes.isEmpty()) {
-            calories += recipes.stream().mapToDouble(RecipeDTO::getKilocalories).sum();
-            fats += recipes.stream().mapToDouble(RecipeDTO::getFats).sum();
-            carbohydrates += recipes.stream().mapToDouble(RecipeDTO::getCarbohydrates).sum();
-            proteins += recipes.stream().mapToDouble(RecipeDTO::getProteins).sum();
+            calories += recipes.stream().mapToDouble(Recipe::getKilocalories).sum();
+            fats += recipes.stream().mapToDouble(Recipe::getFats).sum();
+            carbohydrates += recipes.stream().mapToDouble(Recipe::getCarbohydrates).sum();
+            proteins += recipes.stream().mapToDouble(Recipe::getProteins).sum();
         }
     }
 
@@ -93,13 +94,13 @@ public class Meal {
 
     }
 
-    public void setMealDetails(List<RecipeDTO> newRecipes) {
+    public void setMealDetails(List<Recipe> newRecipes) {
         recipes.addAll(newRecipes);
         boolean isRecipesEmpty = newRecipes.isEmpty();
-        calories = isRecipesEmpty ? 0 : newRecipes.stream().mapToDouble(RecipeDTO::getKilocalories).sum();
-        fats = isRecipesEmpty ? 0 : newRecipes.stream().mapToDouble(RecipeDTO::getFats).sum();
-        carbohydrates = isRecipesEmpty ? 0 : newRecipes.stream().mapToDouble(RecipeDTO::getCarbohydrates).sum();
-        proteins = isRecipesEmpty ? 0 : newRecipes.stream().mapToDouble(RecipeDTO::getProteins).sum();
+        calories = isRecipesEmpty ? 0 : newRecipes.stream().mapToDouble(Recipe::getKilocalories).sum();
+        fats = isRecipesEmpty ? 0 : newRecipes.stream().mapToDouble(Recipe::getFats).sum();
+        carbohydrates = isRecipesEmpty ? 0 : newRecipes.stream().mapToDouble(Recipe::getCarbohydrates).sum();
+        proteins = isRecipesEmpty ? 0 : newRecipes.stream().mapToDouble(Recipe::getProteins).sum();
         sumNutrients();
     }
 

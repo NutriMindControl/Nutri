@@ -2,12 +2,17 @@ package talky.dietcontrol.services.interfaces;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.ResponseEntity;
-import talky.dietcontrol.model.dto.*;
+import talky.dietcontrol.model.dto.dailymenu.DailyMenuDTO;
+import talky.dietcontrol.model.dto.dailymenu.MealTypeResponseDTO;
+import talky.dietcontrol.model.dto.dailymenu.MenuInfoDTO;
+import talky.dietcontrol.model.dto.products.ProductChangeResponseDTO;
+import talky.dietcontrol.model.dto.recipes.RecipeChangeResponseDTO;
+import talky.dietcontrol.model.dto.recipes.RecipeDTO;
 
 import java.util.List;
 
 public interface DailyMenuService {
-    ResponseEntity<TalkyRecipeDTO> getRecipeById(Long id) throws JsonProcessingException;
+    ResponseEntity<RecipeDTO> getRecipeById(Long id) throws JsonProcessingException;
 
     ResponseEntity<DailyMenuDTO> getDailyMenu(MenuInfoDTO menuInfoDTO) throws JsonProcessingException;
 

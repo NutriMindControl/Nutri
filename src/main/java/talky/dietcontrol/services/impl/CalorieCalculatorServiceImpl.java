@@ -4,7 +4,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.math3.optim.PointValuePair;
 import org.apache.commons.math3.optim.linear.*;
 import org.springframework.stereotype.Service;
-import talky.dietcontrol.model.dto.*;
+import talky.dietcontrol.model.dto.dailymenu.DailyMenuDTO;
+import talky.dietcontrol.model.dto.dailymenu.MealDTO;
+import talky.dietcontrol.model.dto.dailymenu.MenuInfoDTO;
+import talky.dietcontrol.model.dto.products.ProductDTO;
+import talky.dietcontrol.model.dto.user.Gender;
+import talky.dietcontrol.model.dto.user.PhysicalActivityLevel;
 import talky.dietcontrol.services.interfaces.CalorieCalculatorService;
 
 import java.util.ArrayList;

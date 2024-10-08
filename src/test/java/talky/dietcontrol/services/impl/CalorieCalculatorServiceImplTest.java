@@ -4,10 +4,10 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.MockitoAnnotations;
-import talky.dietcontrol.model.dto.DailyMenuDTO;
-import talky.dietcontrol.model.dto.MealDTO;
-import talky.dietcontrol.model.dto.MenuInfoDTO;
-import talky.dietcontrol.model.dto.ProductDTO;
+import talky.dietcontrol.model.dto.dailymenu.DailyMenuDTO;
+import talky.dietcontrol.model.dto.dailymenu.MealDTO;
+import talky.dietcontrol.model.dto.dailymenu.MenuInfoDTO;
+import talky.dietcontrol.model.dto.products.ProductDTO;
 
 import java.util.ArrayList;
 import java.util.List;

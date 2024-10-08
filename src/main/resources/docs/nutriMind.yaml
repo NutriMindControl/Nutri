@@ -215,7 +215,7 @@ paths:
   #             schema:
   #               type: array
   #               items:
-  #                 $ref: '#/components/schemas/RecipeDTO'
+  #                 $ref: '#/components/schemas/Recipe'
   # /products:
   #   get:
   #     summary: Получить все продукты
@@ -258,7 +258,7 @@ paths:
   #             schema:
   #               type: array
   #               items:
-  #                 $ref: '#/components/schemas/RecipeDTO'
+  #                 $ref: '#/components/schemas/Recipe'
   # /recipes/{recipeId}:
   #   get:
   #     summary: Получить рецепт по ID
@@ -275,7 +275,7 @@ paths:
   #         content:
   #           application/json:
   #             schema:
-  #               $ref: '#/components/schemas/RecipeDTO'
+  #               $ref: '#/components/schemas/Recipe'
   #       '404':
   #         description: Рецепт не найден
   # /users/{userId}/liked-products:
@@ -338,7 +338,7 @@ paths:
   #             schema:
   #               type: array
   #               items:
-  #                 $ref: '#/components/schemas/RecipeDTO'
+  #                 $ref: '#/components/schemas/Recipe'
   #       '404':
   #         description: Пользователь не найден
   # /users/{userId}/disliked-recipes:
@@ -359,7 +359,7 @@ paths:
   #             schema:
   #               type: array
   #               items:
-  #                 $ref: '#/components/schemas/RecipeDTO'
+  #                 $ref: '#/components/schemas/Recipe'
   #       '404':
   #         description: Пользователь не найден
 

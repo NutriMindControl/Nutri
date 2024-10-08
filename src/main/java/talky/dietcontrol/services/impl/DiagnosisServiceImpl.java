@@ -5,7 +5,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import talky.dietcontrol.exceptions.NotFoundException;
-import talky.dietcontrol.model.dto.DiagnosisDTO;
+import talky.dietcontrol.model.dto.user.DiagnosisDTO;
 import talky.dietcontrol.model.entities.Diagnosis;
 import talky.dietcontrol.repository.DiagnosisRepository;
 import talky.dietcontrol.services.interfaces.DiagnosisService;

@@ -1,4 +1,4 @@
-package talky.dietcontrol.model.dto;
+package talky.dietcontrol.model.dto.recipes;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -6,6 +6,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import talky.dietcontrol.model.dto.dailymenu.BaseDTOWithNutrientsMethods;
 
 import java.util.List;
 
@@ -24,10 +25,7 @@ public class RecipeDTO implements BaseDTOWithNutrientsMethods {
     private Integer cookTimeMins = null;
 
     @JsonProperty("prep_time_mins")
-    private Integer prepTimeMins = null;
-
-    @JsonProperty("servings")
-    private Integer servings = null;
+    private String prepTimeMins = null;
 
     @JsonProperty("kilocalories")
     private Double kilocalories = null;
@@ -44,6 +42,10 @@ public class RecipeDTO implements BaseDTOWithNutrientsMethods {
     @JsonProperty("ingredients_distributions")
     @Valid
     private List<IngredientsDistributionDto> ingredientsDistributions = null;
+
+    @JsonProperty("recipe_steps")
+    @Valid
+    private List<StepDto> steps;
 
     @Override
     public Double getCalories() {

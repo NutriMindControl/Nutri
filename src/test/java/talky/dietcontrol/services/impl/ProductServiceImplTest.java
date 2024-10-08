@@ -6,10 +6,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
-import talky.dietcontrol.model.dto.Meal;
-import talky.dietcontrol.model.dto.MealDTO;
-import talky.dietcontrol.model.dto.ProductDTO;
-import talky.dietcontrol.model.dto.RecipeDTO;
+import talky.dietcontrol.model.dto.dailymenu.MealDTO;
+import talky.dietcontrol.model.dto.products.ProductDTO;
+import talky.dietcontrol.model.entities.Meal;
 import talky.dietcontrol.model.entities.Product;
 import talky.dietcontrol.repository.ProductsRepository;
 
@@ -84,10 +83,10 @@ class ProductServiceImplTest {
         products.add(productDTO1);
         products.add(productDTO2);
 
-        List<RecipeDTO> recipes = new ArrayList<>();
-        RecipeDTO recipeDTO1 = new RecipeDTO();
+        List<Recipe> recipes = new ArrayList<>();
+        Recipe recipeDTO1 = new Recipe();
         recipeDTO1.setRecipeId(1L);
-        RecipeDTO recipeDTO2 = new RecipeDTO();
+        Recipe recipeDTO2 = new Recipe();
         recipeDTO2.setRecipeId(2L);
         recipes.add(recipeDTO1);
         recipes.add(recipeDTO2);

@@ -1,11 +1,7 @@
-package talky.dietcontrol.model.dto;
+package talky.dietcontrol.model.dto.recipes;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.validation.constraints.NotNull;
 import lombok.Data;
-import org.springframework.validation.annotation.Validated;
-
-import java.util.Objects;
 
 @Data
 

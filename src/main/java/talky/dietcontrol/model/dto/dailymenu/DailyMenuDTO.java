@@ -1,9 +1,11 @@
-package talky.dietcontrol.model.dto;
+package talky.dietcontrol.model.dto.dailymenu;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
+import talky.dietcontrol.model.dto.products.ProductDTO;
+import talky.dietcontrol.model.dto.recipes.RecipeDTO;
 
 import java.time.LocalDate;
 import java.util.List;

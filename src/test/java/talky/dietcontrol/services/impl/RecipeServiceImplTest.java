@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import talky.dietcontrol.exceptions.BadRequestException;
-import talky.dietcontrol.model.dto.RecipeDTO;
 import talky.dietcontrol.model.entities.Diagnosis;
 import talky.dietcontrol.model.entities.ProductCategoryProhibition;
 import talky.dietcontrol.model.mappers.DefaultMapper;
@@ -78,7 +77,7 @@ class RecipeServiceImplTest {
                 .thenReturn(new ResponseEntity<>(jsonResponse, HttpStatus.OK));
         LogCaptor logCaptor = LogCaptor.forClass(RecipeServiceImpl.class);
 
-        List<RecipeDTO> recipes = recipeService.findAllowedRecipesForDiagnose(diagnoseId);
+        List<Recipe> recipes = recipeService.findNotAllowedProductsForDiagnose(diagnoseId);
 
         assertNotNull(recipes);
         assertEquals(1, recipes.size());
@@ -99,7 +98,7 @@ class RecipeServiceImplTest {
         when(diagnosisService.fetchDiagnosis(diagnoseId)).thenReturn(diagnosis);
 
         assertThrows(NullPointerException.class, () -> {
-            recipeService.findAllowedRecipesForDiagnose(diagnoseId);
+            recipeService.findNotAllowedProductsForDiagnose(diagnoseId);
         });
 
     }
@@ -123,7 +122,7 @@ class RecipeServiceImplTest {
         LogCaptor logCaptor = LogCaptor.forClass(BadRequestException.class);
 
         BadRequestException exception = assertThrows(BadRequestException.class, () -> {
-            recipeService.findAllowedRecipesForDiagnose(diagnoseId);
+            recipeService.findNotAllowedProductsForDiagnose(diagnoseId);
         });
 
         assertEquals("Failed to fetch recipes. Status code: 400 BAD_REQUEST", exception.getMessage());

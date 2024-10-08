@@ -1,4 +1,4 @@
-package talky.dietcontrol.model.dto;
+package talky.dietcontrol.model.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

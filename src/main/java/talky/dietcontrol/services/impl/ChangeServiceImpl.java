@@ -1,11 +1,21 @@
 package talky.dietcontrol.services.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import talky.dietcontrol.exceptions.NotFoundException;
-import talky.dietcontrol.model.dto.*;
+import talky.dietcontrol.model.dto.dailymenu.BaseDTOWithNutrientsMethods;
+import talky.dietcontrol.model.dto.dailymenu.DailyMenuDTO;
+import talky.dietcontrol.model.dto.dailymenu.MealDTO;
+import talky.dietcontrol.model.dto.dailymenu.TotalParamsDTO;
+import talky.dietcontrol.model.dto.products.ProductChangeResponseDTO;
+import talky.dietcontrol.model.dto.products.ProductDTO;
+import talky.dietcontrol.model.dto.recipes.RecipeChangeResponseDTO;
+import talky.dietcontrol.model.dto.recipes.RecipeDTO;
+import talky.dietcontrol.model.entities.Meal;
 import talky.dietcontrol.model.entities.Product;
+import talky.dietcontrol.model.entities.Recipe;
 import talky.dietcontrol.services.interfaces.ChangeService;
 import talky.dietcontrol.services.interfaces.ProductService;
 import talky.dietcontrol.services.interfaces.RecipeService;
@@ -42,10 +52,10 @@ public class ChangeServiceImpl implements ChangeService {
         };
     }
 
-    public Meal createAndFillMeal(String mealType, List<ProductDTO> allowedProducts, List<RecipeDTO> allowedRecipes, TotalParamsDTO totalParams) {
+    public Meal createAndFillMeal(String mealType, List<ProductDTO> allowedProducts, Long diagnoseId, TotalParamsDTO totalParams) throws JsonProcessingException {
         Meal meal = getMealRequiredParams(totalParams);
-
-        List<RecipeDTO> recipeDTOS = recipeService.findRecipeWithinRangeAndCategory(allowedRecipes, meal, mealType);
+        List<Long> notAllowedProductIds = recipeService.findNotAllowedProductsForDiagnose(diagnoseId);
+        List<Recipe> recipeDTOS = recipeService.findRecipeWithinRangeAndCategory(notAllowedProductIds, meal, mealType);
         meal.setMealDetails(recipeDTOS);
         productService.fillMealWithProducts(meal, allowedProducts);
         meal.sumNutrients();

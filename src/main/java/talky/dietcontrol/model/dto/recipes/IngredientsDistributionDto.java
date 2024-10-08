@@ -1,4 +1,4 @@
-package talky.dietcontrol.model.dto;
+package talky.dietcontrol.model.dto.recipes;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class IngredientsDistributionDto {
     @JsonProperty("name")
-    private String name;
+    private String productName;
 
     @JsonProperty("measure_unit_name")
     private String measureUnitName;

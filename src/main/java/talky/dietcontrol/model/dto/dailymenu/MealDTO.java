@@ -1,7 +1,9 @@
-package talky.dietcontrol.model.dto;
+package talky.dietcontrol.model.dto.dailymenu;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import talky.dietcontrol.model.dto.products.ProductDTO;
+import talky.dietcontrol.model.dto.recipes.RecipeDTO;
 
 import java.util.ArrayList;
 import java.util.List;

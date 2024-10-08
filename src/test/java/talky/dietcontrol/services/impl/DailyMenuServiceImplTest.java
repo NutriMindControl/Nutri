@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.client.RestTemplate;
 import talky.dietcontrol.config.Constants;
 import talky.dietcontrol.exceptions.NotFoundException;
-import talky.dietcontrol.model.dto.TalkyRecipeDTO;
 
 import java.net.URI;
 
@@ -42,14 +41,14 @@ class DailyMenuServiceImplTest {
         when(restTemplate.getForEntity(URI.create(url), String.class))
                 .thenReturn(new ResponseEntity<>(jsonResponse, HttpStatus.OK));
 
-        TalkyRecipeDTO expectedRecipeDTO = new ObjectMapper().readValue(jsonResponse, TalkyRecipeDTO.class);
+        Recipe expectedRecipeDTO = new ObjectMapper().readValue(jsonResponse, Recipe.class);
 
-        ResponseEntity<TalkyRecipeDTO> response = dailyMenuService.getRecipeById(recipeId);
+        ResponseEntity<Recipe> response = dailyMenuService.getRecipeById(recipeId);
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertEquals(expectedRecipeDTO.getName(), response.getBody().getName());
+        assertEquals(expectedRecipeDTO.getRecipeName(), response.getBody().getRecipeName());
 
         verify(restTemplate, times(1)).getForEntity(URI.create(url), String.class);
     }

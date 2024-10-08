@@ -1,4 +1,4 @@
-package talky.dietcontrol.model.dto;
+package talky.dietcontrol.model.dto.user;
 
 public enum Gender {
     MALE("муж."),

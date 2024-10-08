@@ -207,7 +207,7 @@
     </section>
     <h2>Завтрак</h2>
     <div th:each="recipe : ${breakfastRecipes}">
-        <h3 th:text="${recipe.name}">Рецепт</h3>
+        <h3 th:text="${recipe.recipeName}">Рецепт</h3>
         <table>
             <thead>
             <tr>
@@ -220,7 +220,7 @@
             </thead>
             <tbody>
             <tr>
-                <td th:text="${recipe.name}"></td>
+                <td th:text="${recipe.recipeName}"></td>
                 <td th:text="${recipe.kilocalories}"></td>
                 <td th:text="${recipe.proteins}"></td>
                 <td th:text="${recipe.fats}"></td>
@@ -235,7 +235,7 @@
                 <div th:each="ingredient : ${recipe.ingredientsDistributions}"
                      class="ingredient-item">
                     <div class="ingredient-name"
-                         th:text="${ingredient.name}"></div>
+                         th:text="${ingredient.productName}"></div>
                     <div class="ingredient-details">
                         <span th:text="${ingredient.count}"></span>
                         <span th:text="${ingredient.measureUnitName}"></span>
@@ -248,7 +248,7 @@
             <h4>Шаги приготовления</h4>
             <div th:each="step : ${recipe.steps}">
                 <div class="step">
-                    <div class="step-number" th:text="${step.stepNum + 1}">1
+                    <div class="step-number" th:text="${step.stepNum }">1
                     </div>
                     <div class="step-description"
                          th:text="${step.description}"></div>
@@ -299,7 +299,7 @@
 
     <h2>Обед</h2>
     <div th:each="recipe : ${lunchRecipes}">
-        <h3 th:text="${recipe.name}">Рецепт</h3>
+        <h3 th:text="${recipe.recipeName}">Рецепт</h3>
         <table>
             <thead>
             <tr>
@@ -312,7 +312,7 @@
             </thead>
             <tbody>
             <tr>
-                <td th:text="${recipe.name}"></td>
+                <td th:text="${recipe.recipeName}"></td>
                 <td th:text="${recipe.kilocalories}"></td>
                 <td th:text="${recipe.proteins}"></td>
                 <td th:text="${recipe.fats}"></td>
@@ -327,7 +327,7 @@
                 <div th:each="ingredient : ${recipe.ingredientsDistributions}"
                      class="ingredient-item">
                     <div class="ingredient-name"
-                         th:text="${ingredient.name}"></div>
+                         th:text="${ingredient.productName}"></div>
                     <div class="ingredient-details">
                         <span th:text="${ingredient.count}"></span>
                         <span th:text="${ingredient.measureUnitName}"></span>
@@ -340,7 +340,7 @@
             <h4>Шаги приготовления</h4>
             <div th:each="step : ${recipe.steps}">
                 <div class="step">
-                    <div class="step-number" th:text="${step.stepNum + 1}">1
+                    <div class="step-number" th:text="${step.stepNum }">1
                     </div>
                     <div class="step-description"
                          th:text="${step.description}"></div>
@@ -390,7 +390,7 @@
 
     <h2>Ужин</h2>
     <div th:each="recipe : ${dinnerRecipes}">
-        <h3 th:text="${recipe.name}">Рецепт</h3>
+        <h3 th:text="${recipe.recipeName}">Рецепт</h3>
         <table>
             <thead>
             <tr>
@@ -403,7 +403,7 @@
             </thead>
             <tbody>
             <tr>
-                <td th:text="${recipe.name}"></td>
+                <td th:text="${recipe.recipeName}"></td>
                 <td th:text="${recipe.kilocalories}"></td>
                 <td th:text="${recipe.proteins}"></td>
                 <td th:text="${recipe.fats}"></td>
@@ -418,7 +418,7 @@
                 <div th:each="ingredient : ${recipe.ingredientsDistributions}"
                      class="ingredient-item">
                     <div class="ingredient-name"
-                         th:text="${ingredient.name}"></div>
+                         th:text="${ingredient.productName}"></div>
                     <div class="ingredient-details">
                         <span th:text="${ingredient.count}"></span>
                         <span th:text="${ingredient.measureUnitName}"></span>
@@ -431,7 +431,7 @@
             <h4>Шаги приготовления</h4>
             <div th:each="step : ${recipe.steps}">
                 <div class="step">
-                    <div class="step-number" th:text="${step.stepNum + 1}">1
+                    <div class="step-number" th:text="${step.stepNum}">1
                     </div>
                     <div class="step-description"
                          th:text="${step.description}"></div>

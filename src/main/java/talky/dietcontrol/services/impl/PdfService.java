@@ -8,8 +8,8 @@ import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.templateresolver.ClassLoaderTemplateResolver;
 import org.xhtmlrenderer.pdf.ITextRenderer;
 import talky.dietcontrol.exceptions.NotFoundException;
-import talky.dietcontrol.model.dto.DailyMenuDTO;
-import talky.dietcontrol.model.dto.TalkyRecipeDTO;
+import talky.dietcontrol.model.dto.dailymenu.DailyMenuDTO;
+import talky.dietcontrol.model.dto.recipes.RecipeDTO;
 
 import java.io.ByteArrayOutputStream;
 import java.util.List;
@@ -18,7 +18,7 @@ import java.util.List;
 public class PdfService {
 
 
-    public String generateHtml(DailyMenuDTO menu, List<TalkyRecipeDTO> talkyBreakfast, List<TalkyRecipeDTO> talkyLunch, List<TalkyRecipeDTO> talkyDinner) {
+    public String generateHtml(DailyMenuDTO menu, List<RecipeDTO> talkyBreakfast, List<RecipeDTO> talkyLunch, List<RecipeDTO> talkyDinner) {
         try {
             TemplateEngine templateEngine = new SpringTemplateEngine();
 

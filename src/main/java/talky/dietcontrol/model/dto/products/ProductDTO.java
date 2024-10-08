@@ -1,9 +1,10 @@
-package talky.dietcontrol.model.dto;
+package talky.dietcontrol.model.dto.products;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import talky.dietcontrol.model.dto.dailymenu.BaseDTOWithNutrientsMethods;
 
 @Data
 @AllArgsConstructor
