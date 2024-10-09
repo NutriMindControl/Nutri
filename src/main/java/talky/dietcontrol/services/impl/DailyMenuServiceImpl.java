@@ -40,8 +40,8 @@ public class DailyMenuServiceImpl implements DailyMenuService {
     public static final double CARBOHYDRATES_COEF = 0.4 / 4.1;
     public static final double FATS_COEF = 0.3 / 9.3;
     public static final double PROTEINS_COEF = 0.3 / 4.1;
-    public static final double PLUS_FIVE_PERCENT = 1.05;
-    public static final double MINUS_FIVE_PERCENT = 0.95;
+    public static final double PLUS_FIVE_PERCENT = 1.1;
+    public static final double MINUS_FIVE_PERCENT = 0.9;
 
 
     private final RestTemplate restTemplate;
@@ -94,7 +94,7 @@ public class DailyMenuServiceImpl implements DailyMenuService {
         MealDTO changingMeal = changeService.getChangingMeal(mealType, dailyMenuDTO);
         changeService.updateTotalParams(totalParams, changingMeal, false);
 
-        Meal meal = changeService.createAndFillMeal(mealType, allowedProducts, diagnoseId, totalParams);
+        Meal meal = changeService.createAndFillMeal(mealType, allowedProducts, diagnoseId, totalParams, dailyMenuDTO.getAllRecipes());
         log.info("Meal created: {}", mealType);
 
         MealDTO mealDTO = modelMapper.map(meal, MealDTO.class);
@@ -166,11 +166,11 @@ public class DailyMenuServiceImpl implements DailyMenuService {
 
     private String determineDaytime(Long recipeId, DailyMenuDTO dailyMenuDTO) {
         if (dailyMenuDTO.getBreakfastMeals().getRecipes().stream().anyMatch(r -> r.getRecipeId().equals(recipeId))) {
-            return "breakfast";
+            return "Завтрак";
         } else if (dailyMenuDTO.getLunchMeals().getRecipes().stream().anyMatch(r -> r.getRecipeId().equals(recipeId))) {
-            return "lunch";
+            return "Обед";
         } else {
-            return "dinner";
+            return "Ужин";
         }
     }
 
@@ -204,18 +204,18 @@ public class DailyMenuServiceImpl implements DailyMenuService {
 
     private void createDailyMenu(double bmr, DailyMenuDTO dailyMenuDTO, List<Long> notAllowedProductIds, List<ProductDTO> allowedProducts) {
         final List<ProductDTO> mutableList = new ArrayList<>(allowedProducts);
-        dailyMenuDTO.setBreakfastMeals(createMeal(MealType.BREAKFAST, notAllowedProductIds, mutableList, bmr));
-        dailyMenuDTO.setLunchMeals(createMeal(MealType.LUNCH, notAllowedProductIds, mutableList, bmr));
-        dailyMenuDTO.setDinnerMeals(createMeal(MealType.DINNER, notAllowedProductIds, mutableList, bmr));
+        dailyMenuDTO.setBreakfastMeals(createMeal(MealType.BREAKFAST, notAllowedProductIds, mutableList, bmr, dailyMenuDTO.getAllRecipes()));
+        dailyMenuDTO.setLunchMeals(createMeal(MealType.LUNCH, notAllowedProductIds, mutableList, bmr, dailyMenuDTO.getAllRecipes()));
+        dailyMenuDTO.setDinnerMeals(createMeal(MealType.DINNER, notAllowedProductIds, mutableList, bmr, dailyMenuDTO.getAllRecipes()));
     }
 
 
-    private MealDTO createMeal(MealType mealType, List<Long> notAllowedProductIds, List<ProductDTO> allowedProducts, double bmr) {
+    private MealDTO createMeal(MealType mealType, List<Long> notAllowedProductIds, List<ProductDTO> allowedProducts, double bmr, List<RecipeDTO> allRecipes) {
         log.info("Started creating meal: {}", mealType.getCategory());
         Meal meal = new Meal();
         meal.setMealRequirements(bmr, mealType.getPart());
 
-        List<Recipe> recipeDTOS = recipeService.findRecipeWithinRangeAndCategory(notAllowedProductIds, meal, mealType.getCategory());
+        List<Recipe> recipeDTOS = recipeService.findRecipeWithinRangeAndCategory(notAllowedProductIds, meal, mealType.getCategory(), allRecipes);
         meal.setMealDetails(recipeDTOS);
         productService.fillMealWithProducts(meal, allowedProducts);
         log.info("Meal created: {}", mealType.getCategory());

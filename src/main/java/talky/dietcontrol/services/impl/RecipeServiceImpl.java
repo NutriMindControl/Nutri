@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import talky.dietcontrol.exceptions.NotFoundException;
 import talky.dietcontrol.model.dto.recipes.CategoryDto;
+import talky.dietcontrol.model.dto.recipes.RecipeDTO;
 import talky.dietcontrol.model.entities.*;
 import talky.dietcontrol.repository.CategoryRepository;
 import talky.dietcontrol.repository.ProductCategoryProhibitionRepository;
@@ -64,7 +65,7 @@ public class RecipeServiceImpl implements RecipeService {
         return notAllowedProducts.stream().map(ProductCategoryProhibition::getProductId).toList();
     }
 
-    public List<Recipe> findRecipeWithinRangeAndCategory(List<Long> diagnoseId, Meal meal, String category) {
+    public List<Recipe> findRecipeWithinRangeAndCategory(List<Long> diagnoseId, Meal meal, String category, List<RecipeDTO> allRecipes) {
         log.info("Started filling meal with dishes");
         List<Recipe> recipesDTO = filterRecipesByCategory(diagnoseId, category);
 
@@ -75,14 +76,16 @@ public class RecipeServiceImpl implements RecipeService {
         int totalFat = 0;
         int totalCarbs = 0;
         for (Recipe recipe : recipesDTO) {
-            if (totalCalories + recipe.getKilocalories() <= meal.getExpectedKilocalories()[1] && totalProtein + recipe.getProteins() <= meal.getExpectedProteins()[1] && totalFat + recipe.getFats() <= meal.getExpectedFats()[1] && totalCarbs + recipe.getCarbohydrates() <= meal.getExpectedCarbohydrates()[1]) {
-                selectedRecipes.add(recipe);
-                totalCalories += recipe.getKilocalories();
-                totalProtein += recipe.getProteins();
-                totalFat += recipe.getFats();
-                totalCarbs += recipe.getCarbohydrates();
+            if (allRecipes.stream().noneMatch(m -> m.getRecipeId().equals(recipe.getId()))) {
+                if (totalCalories + recipe.getKilocalories() <= meal.getExpectedKilocalories()[1] && totalProtein + recipe.getProteins() <= meal.getExpectedProteins()[1] && totalFat + recipe.getFats() <= meal.getExpectedFats()[1] && totalCarbs + recipe.getCarbohydrates() <= meal.getExpectedCarbohydrates()[1]) {
+                    selectedRecipes.add(recipe);
+                    totalCalories += recipe.getKilocalories();
+                    totalProtein += recipe.getProteins();
+                    totalFat += recipe.getFats();
+                    totalCarbs += recipe.getCarbohydrates();
+                }
+                if (selectedRecipes.size() == 2) break;
             }
-            if (selectedRecipes.size() == 2) break;
         }
         log.info("Recipes with dishes were added: {}", selectedRecipes);
 

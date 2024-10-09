@@ -52,10 +52,10 @@ public class ChangeServiceImpl implements ChangeService {
         };
     }
 
-    public Meal createAndFillMeal(String mealType, List<ProductDTO> allowedProducts, Long diagnoseId, TotalParamsDTO totalParams) throws JsonProcessingException {
+    public Meal createAndFillMeal(String mealType, List<ProductDTO> allowedProducts, Long diagnoseId, TotalParamsDTO totalParams, List<RecipeDTO> allRecipes) throws JsonProcessingException {
         Meal meal = getMealRequiredParams(totalParams);
         List<Long> notAllowedProductIds = recipeService.findNotAllowedProductsForDiagnose(diagnoseId);
-        List<Recipe> recipeDTOS = recipeService.findRecipeWithinRangeAndCategory(notAllowedProductIds, meal, mealType);
+        List<Recipe> recipeDTOS = recipeService.findRecipeWithinRangeAndCategory(notAllowedProductIds, meal, mealType, allRecipes);
         meal.setMealDetails(recipeDTOS);
         productService.fillMealWithProducts(meal, allowedProducts);
         meal.sumNutrients();
@@ -64,14 +64,10 @@ public class ChangeServiceImpl implements ChangeService {
 
     private static Meal getMealRequiredParams(TotalParamsDTO totalParams) {
         Meal meal = new Meal();
-        double totalCals = totalParams.getRequiredCalories() - totalParams.getTotalCalories();
-        meal.setExpectedKilocalories(new Double[]{totalCals * MINUS_FIVE_PERCENT, totalCals * PLUS_FIVE_PERCENT});
-        double totalFats = totalParams.getDailyFatNeeds() - totalParams.getTotalFats();
-        meal.setExpectedFats(new Double[]{totalFats * MINUS_FIVE_PERCENT, totalFats * PLUS_FIVE_PERCENT});
-        double totalCarbs = totalParams.getDailyCarbohydrateNeeds() - totalParams.getTotalCarbohydrates();
-        meal.setExpectedCarbohydrates(new Double[]{totalCarbs * MINUS_FIVE_PERCENT, totalCarbs * PLUS_FIVE_PERCENT});
-        double totalProteins = totalParams.getDailyProteinNeeds() - totalParams.getTotalProteins();
-        meal.setExpectedProteins(new Double[]{totalProteins * MINUS_FIVE_PERCENT, totalProteins * PLUS_FIVE_PERCENT});
+        meal.setExpectedKilocalories(new Double[]{totalParams.getRequiredCalories() * MINUS_FIVE_PERCENT - totalParams.getTotalCalories(), totalParams.getRequiredCalories() * PLUS_FIVE_PERCENT - totalParams.getTotalCalories()});
+        meal.setExpectedFats(new Double[]{totalParams.getDailyFatNeeds() * MINUS_FIVE_PERCENT - totalParams.getTotalFats(), totalParams.getDailyFatNeeds() * PLUS_FIVE_PERCENT - totalParams.getTotalFats()});
+        meal.setExpectedCarbohydrates(new Double[]{totalParams.getDailyCarbohydrateNeeds() * MINUS_FIVE_PERCENT - totalParams.getTotalCarbohydrates(), totalParams.getDailyCarbohydrateNeeds() * PLUS_FIVE_PERCENT - totalParams.getTotalCarbohydrates()});
+        meal.setExpectedProteins(new Double[]{totalParams.getDailyProteinNeeds() * MINUS_FIVE_PERCENT - totalParams.getTotalProteins(), totalParams.getDailyProteinNeeds() * PLUS_FIVE_PERCENT - totalParams.getTotalProteins()});
         return meal;
     }
 

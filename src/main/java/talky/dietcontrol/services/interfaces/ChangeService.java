@@ -18,7 +18,7 @@ public interface ChangeService {
 
     MealDTO getChangingMeal(String mealType, DailyMenuDTO dailyMenuDTO);
 
-    Meal createAndFillMeal(String mealType, List<ProductDTO> allowedProducts, Long diagnoseId, TotalParamsDTO totalParams) throws JsonProcessingException;
+    Meal createAndFillMeal(String mealType, List<ProductDTO> allowedProducts, Long diagnoseId, TotalParamsDTO totalParams, List<RecipeDTO> allRecipes) throws JsonProcessingException;
 
     ProductDTO getChangingProduct(Long productId, DailyMenuDTO dailyMenuDTO);
 

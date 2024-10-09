@@ -7,8 +7,8 @@ import talky.dietcontrol.model.entities.Diagnosis;
 import java.util.List;
 
 public interface DiagnosisService {
-    public ResponseEntity<List<DiagnosisDTO>> getDiagnosis();
+     ResponseEntity<List<DiagnosisDTO>> getDiagnosis();
 
-    public Diagnosis fetchDiagnosis(Long diagnosisId);
+     Diagnosis fetchDiagnosis(Long diagnosisId);
 
 }

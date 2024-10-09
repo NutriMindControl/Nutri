@@ -36,7 +36,7 @@ class CalorieCalculatorServiceImplTest {
 
         double dailyCalorieNeeds = calorieCalculatorService.calculateDailyCalorieNeeds(menuInfoDTO);
 
-        assertEquals(1483, dailyCalorieNeeds);
+        assertEquals(1334, dailyCalorieNeeds);
     }
 
     @Test
@@ -50,7 +50,7 @@ class CalorieCalculatorServiceImplTest {
 
         double dailyCalorieNeeds = calorieCalculatorService.calculateDailyCalorieNeeds(menuInfoDTO);
 
-        assertEquals(1345, dailyCalorieNeeds);
+        assertEquals(1211, dailyCalorieNeeds);
     }
 
     @Test

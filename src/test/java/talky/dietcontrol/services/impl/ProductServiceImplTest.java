@@ -8,8 +8,8 @@ import org.mockito.MockitoAnnotations;
 import org.modelmapper.ModelMapper;
 import talky.dietcontrol.model.dto.dailymenu.MealDTO;
 import talky.dietcontrol.model.dto.products.ProductDTO;
-import talky.dietcontrol.model.entities.Meal;
-import talky.dietcontrol.model.entities.Product;
+import talky.dietcontrol.model.dto.recipes.RecipeDTO;
+import talky.dietcontrol.model.entities.*;
 import talky.dietcontrol.repository.ProductsRepository;
 
 import java.util.ArrayList;
@@ -30,9 +30,14 @@ class ProductServiceImplTest {
     @InjectMocks
     private ProductServiceImpl productServiceImpl;
 
+    private Recipe recipe;
+
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
+        recipe = new Recipe(1L, "Spaghetti Bolognese", 30, "15", 600.0, 25.0, 20.0, 70.0, List.of(new Step()), List.of(new IngredientsDistribution()), List.of(new Category()));
+
     }
 
     @Test
@@ -83,10 +88,10 @@ class ProductServiceImplTest {
         products.add(productDTO1);
         products.add(productDTO2);
 
-        List<Recipe> recipes = new ArrayList<>();
-        Recipe recipeDTO1 = new Recipe();
+        List<RecipeDTO> recipes = new ArrayList<>();
+        RecipeDTO recipeDTO1 = new RecipeDTO();
         recipeDTO1.setRecipeId(1L);
-        Recipe recipeDTO2 = new Recipe();
+        RecipeDTO recipeDTO2 = new RecipeDTO();
         recipeDTO2.setRecipeId(2L);
         recipes.add(recipeDTO1);
         recipes.add(recipeDTO2);
@@ -94,12 +99,13 @@ class ProductServiceImplTest {
         MealDTO meal = new MealDTO();
         meal.setProducts(List.of(productDTO1));
         meal.setRecipes(List.of(recipeDTO1));
-
-        productServiceImpl.removeUsedProducts(products, recipes, meal);
+        ArrayList<Recipe> objects = new ArrayList<>();
+        objects.add(recipe);
+        productServiceImpl.removeUsedProducts(products, objects, meal);
 
         assertEquals(1, products.size());
-        assertEquals(1, recipes.size());
-        assertEquals(2L, products.get(0).getProductId());
-        assertEquals(2L, recipes.get(0).getRecipeId());
+        assertEquals(2, recipes.size());
+        assertEquals(2, products.get(0).getProductId());
+        assertEquals(1, recipes.get(0).getRecipeId());
     }
 }
