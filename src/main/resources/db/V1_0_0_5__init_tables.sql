@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS measure_units
 );
 
 COPY measure_units (id, name, conversion_to_grams)
-    FROM '/home/alina/dietcontrol (copy)/src/main/resources/csv-data/NutriMind_measures.csv' DELIMITER ',' CSV HEADER;
+    FROM '/csv-data/NutriMind_measures.csv' DELIMITER ',' CSV HEADER;
 
 CREATE TABLE IF NOT EXISTS categories
 (
@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS categories_distribution
 
 COPY recipes (id, name, cook_time_mins, prep_time_mins, kilocalories, proteins,
               fats, carbohydrates)
-    FROM '/home/alina/dietcontrol (copy)/src/main/resources/csv-data/NutriMind_Recipes.csv' DELIMITER ',' CSV HEADER;
+    FROM '/csv-data/NutriMind_Recipes.csv' DELIMITER ',' CSV HEADER;
 CREATE TABLE IF NOT EXISTS recipe_steps
 (
     id          bigint GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
@@ -59,7 +59,7 @@ CREATE TABLE IF NOT EXISTS recipe_steps
     UNIQUE (step_num, recipe_id)
 );
 COPY recipe_steps (id, description, step_num, recipe_id)
-    FROM '/home/alina/dietcontrol (copy)/src/main/resources/csv-data/NutriMind_steps.csv' DELIMITER ',' CSV HEADER;
+    FROM '/csv-data/NutriMind_steps.csv' DELIMITER ',' CSV HEADER;
 
 CREATE TABLE IF NOT EXISTS ingredients_distribution
 (
@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS ingredients_distribution
 
 copy ingredients_distribution (ingredient_id, recipe_id, measure_unit_id,
                                measure_unit_count)
-    FROM '/home/alina/dietcontrol (copy)/src/main/resources/csv-data/NutriMind_Ingredients_distribution.csv' DELIMITER ',' CSV HEADER;
+    FROM '/csv-data/NutriMind_Ingredients_distribution.csv' DELIMITER ',' CSV HEADER;
 
 
 INSERT INTO categories (name)
